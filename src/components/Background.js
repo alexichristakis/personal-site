@@ -83,9 +83,9 @@ class Background extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  willLeave = styleCell => {
+  willLeave = ({ style }) => {
     return {
-      ...styleCell.style,
+      ...style,
       opacity: spring(0, SPRING_CONFIG),
       scale: spring(2, SPRING_CONFIG)
     };
@@ -104,14 +104,16 @@ class Background extends Component {
       con => con.p1 !== removed.key && con.p2 !== removed.key
     );
 
-    points.forEach((p1, i) => {
+    updated_points.forEach((p1, i) => {
       if (p1.x !== p2.x && p1.y !== p2.y) {
         if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
-          updated_points[0].connections++;
-          updated_points[i].connections++;
-
           let d = this.distance(p1, p2);
           if (d < DIST - Math.random() * RANDOMNESS) {
+            // update number of connections
+            updated_points[0].connections++;
+            updated_points[i].connections++;
+
+            // push that connection
             const key = uuidv4();
             updated_connections.push({
               key,

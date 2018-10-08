@@ -8,6 +8,7 @@ import Line from "./Line";
 const Dot = styled.div`
   width: 2px;
   height: 2px;
+  z-index: 1;
   border-radius: 1px;
   position: absolute;
   background-color: lightblue;
@@ -16,12 +17,14 @@ const Dot = styled.div`
 
 const Wrapper = styled.div`
   background-color: #afafafaf;
+  // background-color: rgba(0, 0, 0, 0);
   position: absolute;
   width: 100%;
   height: 100%;
 `;
 
-const SPRING_CONFIG = { stiffness: 60, damping: 15 };
+// const SPRING_CONFIG = { stiffness: 60, damping: 15 };
+const SPRING_CONFIG = { stiffness: 175, damping: 20 };
 const SAFETY_ZONE = 55;
 const MAX_POINTS = 80;
 const MAX_CONNECTIONS = 60;
@@ -65,9 +68,11 @@ class Background extends Component {
 
   handleMouseMove = ({ pageX, pageY }) => {
     const { width, height } = this.state.screen;
-    const { x, y } = this.state.mouse;
 
-    if (this.distance({ x: pageX, y: pageY }, { x, y }) > 20 && !this.isInSafeZone(pageX, pageY)) {
+    if (
+      this.distance({ x: pageX, y: pageY }, this.state.mouse) > 20 &&
+      !this.isInSafeZone(pageX, pageY)
+    ) {
       const [points, connections] = this.generateConnections(this.state.connections, [
         {
           x: pageX - Math.random() * 10,
@@ -91,11 +96,21 @@ class Background extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  willLeave = ({ style }) => {
+  willLeave = style => {
+    // console.log("will leave: ", style);
     return {
-      ...style,
+      ...style.style,
       opacity: spring(0, SPRING_CONFIG),
-      scale: spring(2, SPRING_CONFIG)
+      scale: spring(0, SPRING_CONFIG)
+    };
+  };
+
+  willEnter = style => {
+    // console.log("will enter: ", style);
+    return {
+      ...style.style,
+      opacity: 0.5,
+      scale: 0
     };
   };
 
@@ -141,37 +156,67 @@ class Background extends Component {
   render() {
     const { points, connections } = this.state;
 
-    const styles = points.map(({ x, y, key }) => {
-      return {
-        key,
-        style: {
-          opacity: spring(1),
-          scale: spring(0),
-          x: spring(x - 1),
-          y: spring(y - 1)
-        }
-      };
-    });
+    let styles = [
+      ...points.map(({ x, y, key }) => {
+        return {
+          key,
+          data: {
+            point: true,
+            x: x - 1,
+            y: y - 1
+          },
+          style: {
+            opacity: spring(1),
+            scale: spring(1)
+          }
+        };
+      }),
+      ...connections.map(({ to, from, key }) => {
+        return {
+          key,
+          data: {
+            line: true,
+            from,
+            to
+          },
+          style: {
+            opacity: spring(1),
+            scale: spring(1)
+          }
+        };
+      })
+    ];
 
     return (
-      <TransitionMotion willLeave={this.willLeave} styles={styles}>
-        {circles => {
+      <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
+        {items => {
           return (
             <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
-              {connections.map(({ key, from, to }) => (
-                <Line key={key} from={from} to={to} />
-              ))}
-              {circles.map(({ key, style: { opacity, scale, x, y } }) => (
-                <Dot
-                  key={key}
-                  style={{
-                    left: x,
-                    top: y,
-                    opacity: opacity,
-                    scale: scale
-                  }}
-                />
-              ))}
+              {items.map(({ key, data, style }) => {
+                return data.line ? (
+                  <Line
+                    key={key}
+                    from={data.from}
+                    to={data.to}
+                    style={{
+                      ...style
+                      // transform: `scale(${style.scale})`,
+                      // WebkitTransform: `scale(${style.scale})`
+                    }}
+                  />
+                ) : (
+                  <Dot
+                    key={key}
+                    style={{
+                      ...style,
+                      transform: `scale(${style.scale})`,
+                      WebkitTransform: `scale(${style.scale})`,
+                      left: data.x,
+                      top: data.y
+                    }}
+                  />
+                );
+              })}
               {this.props.children}
             </Wrapper>
           );

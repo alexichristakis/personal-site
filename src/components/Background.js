@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 `;
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
-const SPRING_CONFIG = { stiffness: 175, damping: 20 };
+const SPRING_CONFIG = { stiffness: 213, damping: 20 };
 const SAFETY_ZONE = 55;
 const MAX_POINTS = 80;
 const MAX_CONNECTIONS = 60;
@@ -166,8 +166,8 @@ class Background extends Component {
             y: y - 1
           },
           style: {
-            opacity: spring(1),
-            scale: spring(1)
+            opacity: spring(1, SPRING_CONFIG),
+            scale: spring(1, SPRING_CONFIG)
           }
         };
       }),
@@ -180,8 +180,8 @@ class Background extends Component {
             to
           },
           style: {
-            opacity: spring(1),
-            scale: spring(1)
+            opacity: spring(1, SPRING_CONFIG),
+            scale: spring(1, SPRING_CONFIG)
           }
         };
       })
@@ -194,16 +194,7 @@ class Background extends Component {
             <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
               {items.map(({ key, data, style }) => {
                 return data.line ? (
-                  <Line
-                    key={key}
-                    from={data.from}
-                    to={data.to}
-                    style={{
-                      ...style
-                      // transform: `scale(${style.scale})`,
-                      // WebkitTransform: `scale(${style.scale})`
-                    }}
-                  />
+                  <Line key={key} from={data.from} to={data.to} style={style} />
                 ) : (
                   <Dot
                     key={key}

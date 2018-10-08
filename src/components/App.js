@@ -1,15 +1,8 @@
 import React, { Component } from "react";
 import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
-import styled from "styled-components";
 
 import Background from "./Background";
 import Info from "./Info";
-
-const Container = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
 
 class App extends Component {
   componentDidMount() {
@@ -24,15 +17,6 @@ class App extends Component {
     clearAllBodyScrollLocks();
   }
 
-  // render() {
-  //   return (
-  //     <Container>
-  //       <Info />
-  //       <Background />
-  //     </Container>
-  //   );
-  // }
-
   render() {
     return (
       <Background>
@@ -41,7 +25,5 @@ class App extends Component {
     );
   }
 }
-
-//<Background />
 
 export default App;

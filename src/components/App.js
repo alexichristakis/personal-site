@@ -24,14 +24,24 @@ class App extends Component {
     clearAllBodyScrollLocks();
   }
 
+  // render() {
+  //   return (
+  //     <Container>
+  //       <Info />
+  //       <Background />
+  //     </Container>
+  //   );
+  // }
+
   render() {
     return (
-      <Container>
-        <Background />
+      <Background>
         <Info />
-      </Container>
+      </Background>
     );
   }
 }
+
+//<Background />
 
 export default App;

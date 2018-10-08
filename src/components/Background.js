@@ -119,6 +119,7 @@ class Background extends Component {
                   }}
                 />
               ))}
+              {this.props.children}
             </Wrapper>
           );
         }}

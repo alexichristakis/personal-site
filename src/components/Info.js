@@ -17,7 +17,7 @@ const Header = styled.div`
 
 const Link = styled.div`
   margin-top: 10px;
-  transition: all 150ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
+  transition: all 100ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
     color: white;
     transform: scale(1.2);

@@ -22,26 +22,58 @@ const Wrapper = styled.div`
 `;
 
 const SPRING_CONFIG = { stiffness: 60, damping: 15 };
+const SAFETY_ZONE = 55;
 const MAX_POINTS = 80;
 const RANDOMNESS = 75;
 const DIST = 150;
 
 class Background extends Component {
   state = {
+    screen: {
+      width: window.innerWidth,
+      height: window.innerHeight
+    },
     points: [],
     connections: [],
     now: "t" + 0
   };
 
-  handleMouseMove = ({ pageX, pageY }) => {
-    let points = [{ x: pageX, y: pageY, key: uuidv4() }, ...this.state.points];
-    let connections = this.generateConnections(this.state.connections, points);
+  componentDidMount() {
+    window.addEventListener("resize", this.onResize);
+    this.onResize();
+  }
 
+  onResize = () => {
     this.setState({
-      points: points.slice(0, MAX_POINTS),
-      connections,
-      now: "t" + Date.now()
+      screen: {
+        width: window.innerWidth,
+        height: window.innerHeight
+      }
     });
+  };
+
+  isInSafeZone = (x, y) => {
+    const { width, height } = this.state.screen;
+    return (
+      x < width / 2 + SAFETY_ZONE &&
+      x > width / 2 - SAFETY_ZONE &&
+      y < height / 2 + SAFETY_ZONE &&
+      y > height / 2 - SAFETY_ZONE
+    );
+  };
+
+  handleMouseMove = ({ pageX, pageY }) => {
+    const { width, height } = this.state.screen;
+    if (!this.isInSafeZone(pageX, pageY)) {
+      let points = [{ x: pageX, y: pageY, key: uuidv4() }, ...this.state.points];
+      let connections = this.generateConnections(this.state.connections, points);
+
+      this.setState({
+        points: points.slice(0, MAX_POINTS),
+        connections,
+        now: "t" + Date.now()
+      });
+    }
   };
 
   handleTouchMove = e => {

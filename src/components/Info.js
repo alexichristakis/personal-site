@@ -20,7 +20,7 @@ const Link = styled.div`
   transition: all 100ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
     color: white;
-    transform: scale(1.2);
+    transform: scale(1.25);
   }
 `;
 

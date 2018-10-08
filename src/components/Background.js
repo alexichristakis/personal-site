@@ -30,6 +30,7 @@ const DIST = 150;
 
 class Background extends Component {
   state = {
+    mouse: { x: 0, y: 0 },
     screen: {
       width: window.innerWidth,
       height: window.innerHeight
@@ -64,16 +65,23 @@ class Background extends Component {
 
   handleMouseMove = ({ pageX, pageY }) => {
     const { width, height } = this.state.screen;
-    if (!this.isInSafeZone(pageX, pageY)) {
+    const { x, y } = this.state.mouse;
+
+    if (this.distance({ x: pageX, y: pageY }, { x, y }) > 20 && !this.isInSafeZone(pageX, pageY)) {
       const [points, connections] = this.generateConnections(this.state.connections, [
-        { x: pageX, y: pageY, connections: 0, key: uuidv4() },
+        {
+          x: pageX - Math.random() * 10,
+          y: pageY - Math.random() * 10,
+          connections: 0,
+          key: uuidv4()
+        },
         ...this.state.points
       ]);
 
       this.setState({
         points,
         connections,
-        now: "t" + Date.now()
+        mouse: { x: pageX, y: pageY }
       });
     }
   };

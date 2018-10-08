@@ -24,6 +24,7 @@ const Wrapper = styled.div`
 const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SAFETY_ZONE = 55;
 const MAX_POINTS = 80;
+const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
 
@@ -34,8 +35,7 @@ class Background extends Component {
       height: window.innerHeight
     },
     points: [],
-    connections: [],
-    now: "t" + 0
+    connections: []
   };
 
   componentDidMount() {
@@ -65,11 +65,13 @@ class Background extends Component {
   handleMouseMove = ({ pageX, pageY }) => {
     const { width, height } = this.state.screen;
     if (!this.isInSafeZone(pageX, pageY)) {
-      let points = [{ x: pageX, y: pageY, key: uuidv4() }, ...this.state.points];
-      let connections = this.generateConnections(this.state.connections, points);
+      const [points, connections] = this.generateConnections(this.state.connections, [
+        { x: pageX, y: pageY, connections: 0, key: uuidv4() },
+        ...this.state.points
+      ]);
 
       this.setState({
-        points: points.slice(0, MAX_POINTS),
+        points,
         connections,
         now: "t" + Date.now()
       });
@@ -97,24 +99,33 @@ class Background extends Component {
     let p2 = points[0];
     let removed = points.length > MAX_POINTS ? points[MAX_POINTS] : { key: null };
 
-    let updated = [...connections.filter(con => con.p1 !== removed.key && con.p2 !== removed.key)];
-    points.slice(0, MAX_POINTS).forEach(p1 => {
+    let updated_points = points.slice(0, MAX_POINTS);
+    let updated_connections = connections.filter(
+      con => con.p1 !== removed.key && con.p2 !== removed.key
+    );
+
+    points.forEach((p1, i) => {
       if (p1.x !== p2.x && p1.y !== p2.y) {
-        let d = this.distance(p1, p2);
-        if (d < DIST - Math.random() * RANDOMNESS) {
-          const key = uuidv4();
-          updated.push({
-            key,
-            p1: p1.key,
-            p2: p2.key,
-            from: { x: p1.x, y: p1.y },
-            to: { x: p2.x, y: p2.y }
-          });
+        if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
+          updated_points[0].connections++;
+          updated_points[i].connections++;
+
+          let d = this.distance(p1, p2);
+          if (d < DIST - Math.random() * RANDOMNESS) {
+            const key = uuidv4();
+            updated_connections.push({
+              key,
+              p1: p1.key,
+              p2: p2.key,
+              from: { x: p1.x, y: p1.y },
+              to: { x: p2.x, y: p2.y }
+            });
+          }
         }
       }
     });
 
-    return updated;
+    return [updated_points, updated_connections];
   };
 
   render() {

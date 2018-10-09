@@ -11,11 +11,8 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const Header = styled.div`
-  font-size: 16pt;
-`;
-
 const Link = styled.div`
+  font-size: ${props => (props.header ? "16pt" : "12pt")};
   margin-top: 10px;
   transition: all 100ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
@@ -24,6 +21,7 @@ const Link = styled.div`
   }
 `;
 
+const resume_link = "https://drive.google.com/open?id=1TkXsFwqSSTloQX7oSnBewpa6WwgZ5qfq";
 const github_link = "https://github.com/alexichristakis";
 const linkedin_link = "https://www.linkedin.com/in/alexi-christakis-b53b9214b/";
 const sandbox_link = "https://sandboxatyale.com/";
@@ -32,7 +30,9 @@ class Info extends Component {
   render() {
     return (
       <Container>
-        <Header>Alexi Christakis</Header>
+        <Link header onClick={() => window.open(resume_link)}>
+          Alexi Christakis
+        </Link>
         <Link onClick={() => window.open(github_link)}>Github</Link>
         <Link onClick={() => window.open(linkedin_link)}>LinkedIn</Link>
         <Link onClick={() => window.open(sandbox_link)}>Sandbox</Link>

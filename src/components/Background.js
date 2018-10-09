@@ -24,7 +24,7 @@ const Wrapper = styled.div`
 `;
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
-const SPRING_CONFIG = { stiffness: 213, damping: 20 };
+const SPRING_CONFIG = { stiffness: 215, damping: 20 };
 const SAFETY_ZONE = 55;
 const MAX_POINTS = 80;
 const MAX_CONNECTIONS = 60;
@@ -97,7 +97,6 @@ class Background extends Component {
   };
 
   willLeave = style => {
-    // console.log("will leave: ", style);
     return {
       ...style.style,
       opacity: spring(0, SPRING_CONFIG),
@@ -106,10 +105,10 @@ class Background extends Component {
   };
 
   willEnter = style => {
-    // console.log("will enter: ", style);
     return {
       ...style.style,
-      opacity: 0.5,
+      // opacity: 0.5,
+      opacity: 0.9,
       scale: 0
     };
   };

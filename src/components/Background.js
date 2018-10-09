@@ -11,12 +11,13 @@ const Dot = styled.div`
   z-index: 1;
   border-radius: 1px;
   position: absolute;
-  background-color: lightblue;
-  border: 1px solid lightblue;
+  background-color: paleturquoise;
+  border: 1px solid paleturquoise;
 `;
 
 const Wrapper = styled.div`
-  background-color: #afafafaf;
+  // background-color: #afafafaf;
+  background-color: #dcdcdc;
   // background-color: rgba(0, 0, 0, 0);
   position: absolute;
   width: 100%;
@@ -25,8 +26,8 @@ const Wrapper = styled.div`
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const SAFETY_ZONE = 55;
-const MAX_POINTS = 80;
+const SAFETY_ZONE = 120;
+const MAX_POINTS = 100;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;

@@ -19,7 +19,7 @@ const Line = props => {
     WebkitTransform: transform,
     width: `${len}px`,
     height: `${0}px`,
-    borderBottom: "0.5px solid gray",
+    borderBottom: "0.5px solid lightslategray",
     ...style
   };
 

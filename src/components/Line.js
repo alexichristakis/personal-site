@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const Line = props => {
   let { from, to, style } = props;
@@ -19,7 +19,11 @@ const Line = props => {
     WebkitTransform: transform,
     width: `${len}px`,
     height: `${0}px`,
-    borderBottom: "0.5px solid lightslategray",
+    borderBottom: "0.5px solid #70809a",
+    zIndex: 1,
+    // borderBottom: "0.5px solid lightslategray",
+    // borderBottom: `0.5px solid ${color}`,
+
     ...style
   };
 

@@ -3,20 +3,28 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  position: absolute;
+  // position: absolute;
+  // background-color: red;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  margin-top: 40vh;
+  margin-bottom: 40vh;
+  z-index: 10;
 `;
 
 const Link = styled.div`
   font-size: ${props => (props.header ? "30pt" : "20pt")};
   margin-top: 10px;
-  transition: all 150ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
+  color: #70809a
+  // width: 100%;
+  padding-left: 75px;
+  padding-right: 75px;
+  // background-color: red;
+  // cursor: pointer;
+  transition: all 170ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
-    color: white;
+    color: #afeeff;
     transform: scale(1.25);
   }
 `;
@@ -29,7 +37,13 @@ const linkedin_link = "https://www.linkedin.com/in/alexi-christakis-b53b9214b/";
 const sandbox_link = "https://sandboxatyale.com/";
 
 class Info extends Component {
+  state = {
+    file: "",
+    loading: true
+  };
+
   render() {
+    console.log("loading: ", this.state.loading);
     return (
       <Container>
         <Link header onClick={() => window.open(resume_link)}>

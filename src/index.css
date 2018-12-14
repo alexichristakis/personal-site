@@ -1,12 +1,34 @@
+@font-face {
+  font-family: 'sofia-pro';
+  src: local('sofia-pro'), url(./assets/sofia-pro-regular-webfont.ttf) format('truetype');
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  width: 100%;
+  height: 100%;
+  overscroll-behavior: none;
+  -ms-overflow-style: none;  
+  overflow: -moz-scrollbars-none;
+  font-family: 'sofia-pro', Fallback, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body::-webkit-scrollbar { 
+  display: none;  
+}
+
+
+/*html, body, #app, #app>div {
+  height: 100%;
+  width: 100%;
+}*/
+
+/*[data-reactroot] {
+  width: 100%;
+  height: 100%;
+}*/
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

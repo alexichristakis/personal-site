@@ -8,37 +8,45 @@ import Line from "./Line";
 const Dot = styled.div`
   width: 2px;
   height: 2px;
-  z-index: 1;
+  z-index: 2;
   border-radius: 1px;
   position: absolute;
-  background-color: paleturquoise;
-  border: 1px solid paleturquoise;
+  background-color: #afeeff;
+  border: 1px solid #afeeff;
 `;
 
+// background-color: #dcdcdc;
+
 const Wrapper = styled.div`
-  // background-color: #afafafaf;
-  background-color: #dcdcdc;
-  // background-color: rgba(0, 0, 0, 0);
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  // background-color: #efefef;
+  // background-color: rgba(50, 50, 50, 1);
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  // z-index: -100;
 `;
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const SAFETY_ZONE = 120;
-const MAX_POINTS = 100;
+const MAX_POINTS = 150;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
+const POINT_DROP = 30;
 
-class Background extends Component {
+class Graphics extends Component {
   state = {
+    count: 0,
     mouse: { x: 0, y: 0 },
     screen: {
       width: window.innerWidth,
       height: window.innerHeight
     },
+    styles: [],
     points: [],
     connections: []
   };
@@ -57,38 +65,56 @@ class Background extends Component {
     });
   };
 
-  isInSafeZone = (x, y) => {
-    const { width, height } = this.state.screen;
-    return (
-      x < width / 2 + SAFETY_ZONE &&
-      x > width / 2 - SAFETY_ZONE &&
-      y < height / 2 + SAFETY_ZONE &&
-      y > height / 2 - SAFETY_ZONE
-    );
-  };
-
-  handleMouseMove = ({ pageX, pageY }) => {
-    const { width, height } = this.state.screen;
-
-    if (
-      this.distance({ x: pageX, y: pageY }, this.state.mouse) > 20 &&
-      !this.isInSafeZone(pageX, pageY)
-    ) {
+  handleMouseMove = ({ clientX, clientY }) => {
+    if (this.distance({ x: clientX, y: clientY }, this.state.mouse) > POINT_DROP) {
       const [points, connections] = this.generateConnections(this.state.connections, [
         {
-          x: pageX - Math.random() * 10,
-          y: pageY - Math.random() * 10,
+          x: clientX - Math.random() * 10,
+          y: clientY - Math.random() * 10,
           connections: 0,
           key: uuidv4()
         },
         ...this.state.points
       ]);
 
-      this.setState({
+      let styles = [
+        ...points.map(({ x, y, key }) => {
+          return {
+            key,
+            data: {
+              point: true,
+              x: x - 1,
+              y: y - 1
+            },
+            style: {
+              opacity: spring(1, SPRING_CONFIG),
+              scale: spring(1, SPRING_CONFIG)
+            }
+          };
+        }),
+        ...connections.map(({ to, from, key }) => {
+          return {
+            key,
+            data: {
+              line: true,
+              from,
+              to
+            },
+            style: {
+              opacity: spring(1, SPRING_CONFIG),
+              scale: spring(1, SPRING_CONFIG)
+            }
+          };
+        })
+      ];
+
+      this.setState((prevState, props) => ({
+        count: prevState.count + 1,
+        styles,
         points,
         connections,
-        mouse: { x: pageX, y: pageY }
-      });
+        mouse: { x: clientX, y: clientY }
+      }));
     }
   };
 
@@ -154,38 +180,7 @@ class Background extends Component {
   };
 
   render() {
-    const { points, connections } = this.state;
-
-    let styles = [
-      ...points.map(({ x, y, key }) => {
-        return {
-          key,
-          data: {
-            point: true,
-            x: x - 1,
-            y: y - 1
-          },
-          style: {
-            opacity: spring(1, SPRING_CONFIG),
-            scale: spring(1, SPRING_CONFIG)
-          }
-        };
-      }),
-      ...connections.map(({ to, from, key }) => {
-        return {
-          key,
-          data: {
-            line: true,
-            from,
-            to
-          },
-          style: {
-            opacity: spring(1, SPRING_CONFIG),
-            scale: spring(1, SPRING_CONFIG)
-          }
-        };
-      })
-    ];
+    const { styles } = this.state;
 
     return (
       <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
@@ -194,7 +189,7 @@ class Background extends Component {
             <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
               {items.map(({ key, data, style }) => {
                 return data.line ? (
-                  <Line key={key} from={data.from} to={data.to} style={style} />
+                  <Line key={key} from={data.from} to={data.to} color={data.color} style={style} />
                 ) : (
                   <Dot
                     key={key}
@@ -208,7 +203,6 @@ class Background extends Component {
                   />
                 );
               })}
-              {this.props.children}
             </Wrapper>
           );
         }}
@@ -217,4 +211,4 @@ class Background extends Component {
   }
 }
 
-export default Background;
+export default Graphics;

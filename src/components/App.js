@@ -1,27 +1,26 @@
 import React, { Component } from "react";
-import { disableBodyScroll, clearAllBodyScrollLocks } from "body-scroll-lock";
+import styled from "styled-components";
 
-import Background from "./Background";
+import Graphics from "./Graphics";
+import ColorBackground from "./ColorBackground";
 import Info from "./Info";
+import Gallery from "./Gallery";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 class App extends Component {
-  componentDidMount() {
-    this.root = document.querySelector("root");
-    this.body = document.querySelector("body");
-
-    disableBodyScroll(this.root);
-    disableBodyScroll(this.body);
-  }
-
-  componentWillUnmount() {
-    clearAllBodyScrollLocks();
-  }
-
   render() {
     return (
-      <Background>
+      <Wrapper>
+        <ColorBackground />
         <Info />
-      </Background>
+        <Gallery />
+        <Graphics />
+      </Wrapper>
     );
   }
 }

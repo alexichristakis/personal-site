@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { ParallaxProvider } from "react-scroll-parallax";
 import styled from "styled-components";
 
 import Graphics from "./Graphics";
 import ColorBackground from "./ColorBackground";
+import BouncyIcon from "./BouncyIcon";
 import Info from "./Info";
 import Gallery from "./Gallery";
 
@@ -15,12 +17,15 @@ const Wrapper = styled.div`
 class App extends Component {
   render() {
     return (
-      <Wrapper>
-        <ColorBackground />
-        <Info />
-        <Gallery />
-        <Graphics />
-      </Wrapper>
+      <ParallaxProvider>
+        <Wrapper>
+          <ColorBackground />
+          <Info />
+          <BouncyIcon />
+          <Gallery />
+          <Graphics />
+        </Wrapper>
+      </ParallaxProvider>
     );
   }
 }

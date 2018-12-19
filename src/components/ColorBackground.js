@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import ScrollAware from "react-scrolling-color-background";
 
-const COLORS = ["#efefef", "rgba(50, 50, 50, 1)"];
+import colors from "../lib/colors";
+
+const COLORS = [colors.lightbackground, colors.darkbackground];
 
 const Absolute = styled.div`
 	position: absolute;

@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { Parallax } from "react-scroll-parallax";
 import styled from "styled-components";
+
+import colors from "../lib/colors";
 
 const Container = styled.div`
   display: flex;
@@ -13,18 +16,21 @@ const Container = styled.div`
   z-index: 10;
 `;
 
-const Link = styled.div`
+const Link = styled.span`
+  margin: 0.2em 0;
+
+  display: flex;
+  flex-direction: row;
   font-size: ${props => (props.header ? "30pt" : "20pt")};
-  margin-top: 10px;
-  color: #70809a
-  // width: 100%;
+  margin-top: ${props => (props.marginTop ? props.marginTop : "20px")};
+  color: ${colors.darkgray};
   padding-left: 75px;
   padding-right: 75px;
+  cursor: pointer;
   // background-color: red;
-  // cursor: pointer;
   transition: all 170ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
-    color: #afeeff;
+    color: ${colors.turquoise};
     transform: scale(1.25);
   }
 `;
@@ -36,6 +42,13 @@ const github_link = "https://github.com/alexichristakis";
 const linkedin_link = "https://www.linkedin.com/in/alexi-christakis-b53b9214b/";
 const sandbox_link = "https://sandboxatyale.com/";
 
+// const Links = [{url: resume_link, title: "Alexi Christakis"}, {url: }]
+
+// const name = "Alexi Christakis".split("");
+// const git = "GitHub".split("");
+// const linked = "LinkedIn".split("");
+// const sandbox = "Sandbox".split("");
+
 class Info extends Component {
   state = {
     file: "",
@@ -43,15 +56,22 @@ class Info extends Component {
   };
 
   render() {
-    console.log("loading: ", this.state.loading);
     return (
       <Container>
-        <Link header onClick={() => window.open(resume_link)}>
-          Alexi Christakis
+        <Parallax offsetYMax={"500%"} offsetYMin={"-500%"}>
+          <Link header onClick={() => window.open(resume_link)}>
+            Alexi Christakis
+          </Link>
+        </Parallax>
+        <Parallax marginTop={"5px"} offsetYMax={"375%"} offsetYMin={"-375%"}>
+          <Link onClick={() => window.open(github_link)}>GitHub</Link>
+        </Parallax>
+        <Link marginTop={"10px"} onClick={() => window.open(linkedin_link)}>
+          LinkedIn
         </Link>
-        <Link onClick={() => window.open(github_link)}>GitHub</Link>
-        <Link onClick={() => window.open(linkedin_link)}>LinkedIn</Link>
-        <Link onClick={() => window.open(sandbox_link)}>Sandbox</Link>
+        <Parallax offsetYMax={"375%"} offsetYMin={"-375%"} slowerScrollRate>
+          <Link onClick={() => window.open(sandbox_link)}>Sandbox</Link>
+        </Parallax>
       </Container>
     );
   }

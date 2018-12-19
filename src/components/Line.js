@@ -1,4 +1,16 @@
 import React from "react";
+import styled, { keyframes } from "styled-components";
+import { fadeIn } from "react-animations";
+
+import colors from "../lib/colors";
+
+// const Style = styled.div`
+//   position: absolute;
+//   height: 0px;
+//   border-bottom: 0.5px solid ${colors.darkgray};
+//   z-index: 1;
+//   // animation: 0.5s ${keyframes`${fadeIn}`};
+// `;
 
 const Line = props => {
   let { from, to, style } = props;
@@ -19,15 +31,16 @@ const Line = props => {
     WebkitTransform: transform,
     width: `${len}px`,
     height: `${0}px`,
-    borderBottom: "0.5px solid #70809a",
+    borderBottom: `0.5px solid ${colors.darkgray}`,
     zIndex: 1,
     // borderBottom: "0.5px solid lightslategray",
     // borderBottom: `0.5px solid ${color}`,
-
+    // animation: 0.5s ${keyframes`${fadeIn}`};
     ...style
   };
 
   return <div style={computed_style} />;
+  // return <Style />;
 };
 
 export default Line;

@@ -1,12 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Parallax } from "react-parallax";
-
-// import Image from "./Image";
-
-// const Wrapper = styled.div`
-// 	width: 100vw;
-// `;
+import { ParallaxBanner } from "react-scroll-parallax";
 
 const Container = styled.div`
 	display: flex;
@@ -20,7 +14,7 @@ const Container = styled.div`
 	pointer-events: none;
 `;
 
-const Image = styled.div`
+const Image = styled.img`
 	margin: 20px;
 	width: 600px;
 	height: 400px;
@@ -88,24 +82,61 @@ const photos = [
 	require("../assets/images/_DSC9149.jpg"),
 	require("../assets/images/_DSC9248.jpg"),
 	require("../assets/images/_DSC9417.jpg"),
-	require("../assets/images/_DSC9422.jpg"),
+	// require("../assets/images/_DSC9422.jpg"),
 	require("../assets/images/_DSC9955.jpg")
 ];
+
+// <ParallaxBanner
+// 	className="your-class"
+// 	layers={[
+// 		{
+// 			image: "https://foo.com/foo.jpg",
+// 			amount: 0.1,
+// 			slowerScrollRate: false
+// 		},
+// 		{
+// 			image: "https://foo.com/bar.png",
+// 			amount: 0.2,
+// 			slowerScrollRate: false
+// 		}
+// 	]}
+// 	style={{
+// 		height: "500px"
+// 	}}
+// >
+// 	<h1>Banner Children</h1>
+// </ParallaxBanner>;
 
 const Gallery = () => {
 	return (
 		<Container>
-			{photos.map(url => {
-				return (
-					<Image>
-						<Parallax bgImage={url} strength={200}>
-							<div style={{ width: "600px", height: "400px" }} />
-						</Parallax>
-					</Image>
-				);
-			})}
+			{photos.map((url, i) => (
+				<ParallaxBanner
+					layers={[{ image: url, amount: 0.1 }]}
+					style={{
+						margin: "20px",
+						width: "600px",
+						height: "400px",
+						zIndex: "100"
+					}}
+				/>
+			))}
 		</Container>
 	);
+	// return (
+	// 	<Container>
+	// 		{photos.map((url, i) => {
+	// 			return <Image key={i} src={url} />;
+	// 		})}
+	// 	</Container>
+	// );
 };
+/*
+<Image>
+	<Parallax bgImage={url} strength={200}>
+		<div style={{ width: "600px", height: "400px" }} />
+	</Parallax>
+</Image>
+*/
 
 export default Gallery;

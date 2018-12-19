@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import { TransitionMotion, spring } from "react-motion";
-import styled from "styled-components";
+import { fadeIn } from "react-animations";
+import styled, { keyframes } from "styled-components";
 import uuidv4 from "uuid/v4";
 
 import Line from "./Line";
 
+import colors from "../lib/colors";
+
 const Dot = styled.div`
   width: 2px;
   height: 2px;
-  z-index: 2;
+  z-index: 5;
   border-radius: 1px;
   position: absolute;
-  background-color: #afeeff;
-  border: 1px solid #afeeff;
+  background-color: ${colors.turquoise};
+  border: 1px solid ${colors.turquoise};
+  // animation: 0.5s ${keyframes`${fadeIn}`};
 `;
 
 // background-color: #dcdcdc;
 
 const Wrapper = styled.div`
-  // background-color: #efefef;
-  // background-color: rgba(50, 50, 50, 1);
   position: sticky;
   top: 0;
   left: 0;
@@ -27,12 +29,11 @@ const Wrapper = styled.div`
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  // z-index: -100;
 `;
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const MAX_POINTS = 150;
+const MAX_POINTS = 200;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
@@ -67,14 +68,19 @@ class Graphics extends Component {
 
   handleMouseMove = ({ clientX, clientY }) => {
     if (this.distance({ x: clientX, y: clientY }, this.state.mouse) > POINT_DROP) {
-      const [points, connections] = this.generateConnections(this.state.connections, [
+      // old rendering
+      const { points: old_points, connections: old_connections } = this.state;
+
+      // new points and connections
+      const [points, connections] = this.generateConnections(old_connections, [
+        // new point
         {
           x: clientX - Math.random() * 10,
           y: clientY - Math.random() * 10,
           connections: 0,
           key: uuidv4()
         },
-        ...this.state.points
+        ...old_points
       ]);
 
       let styles = [
@@ -118,28 +124,6 @@ class Graphics extends Component {
     }
   };
 
-  handleTouchMove = e => {
-    e.preventDefault();
-    this.handleMouseMove(e.touches[0]);
-  };
-
-  willLeave = style => {
-    return {
-      ...style.style,
-      opacity: spring(0, SPRING_CONFIG),
-      scale: spring(0, SPRING_CONFIG)
-    };
-  };
-
-  willEnter = style => {
-    return {
-      ...style.style,
-      // opacity: 0.5,
-      opacity: 0.9,
-      scale: 0
-    };
-  };
-
   distance = (p1, p2) => {
     return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
   };
@@ -179,8 +163,41 @@ class Graphics extends Component {
     return [updated_points, updated_connections];
   };
 
+  handleTouchMove = e => {
+    e.preventDefault();
+    this.handleMouseMove(e.touches[0]);
+  };
+
+  willLeave = style => {
+    return {
+      ...style.style,
+      opacity: spring(0, SPRING_CONFIG),
+      scale: spring(0, SPRING_CONFIG)
+    };
+  };
+
+  willEnter = style => {
+    return {
+      ...style.style,
+      // opacity: 0.5,
+      opacity: 0.9,
+      scale: 0
+    };
+  };
+
   render() {
-    const { styles } = this.state;
+    const { points, connections, styles } = this.state;
+
+    // return (
+    //   <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
+    //     {connections.map(({ key, from, to }) => (
+    //       <Line key={key} from={from} to={to} />
+    //     ))}
+    //     {points.map(({ key, x, y }) => (
+    //       <Dot key={key} style={{ left: x, top: y }} />
+    //     ))}
+    //   </Wrapper>
+    // );
 
     return (
       <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>

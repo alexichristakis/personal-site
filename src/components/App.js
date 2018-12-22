@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-import styled from "styled-components";
 
 import Graphics from "./Graphics";
 import ColorBackground from "./ColorBackground";
@@ -8,23 +7,19 @@ import BouncyIcon from "./BouncyIcon";
 import Info from "./Info";
 import Gallery from "./Gallery";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import "./app.scss";
 
 class App extends Component {
   render() {
     return (
       <ParallaxProvider>
-        <Wrapper>
+        <div className={"app-container"}>
           <ColorBackground />
           <Info />
           <BouncyIcon />
           <Gallery />
           <Graphics />
-        </Wrapper>
+        </div>
       </ParallaxProvider>
     );
   }

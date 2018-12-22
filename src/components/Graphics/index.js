@@ -1,35 +1,11 @@
 import React, { Component } from "react";
 import { TransitionMotion, spring } from "react-motion";
-import { fadeIn } from "react-animations";
-import styled, { keyframes } from "styled-components";
 import uuidv4 from "uuid/v4";
 
+import "./graphics.scss";
+
 import Line from "./Line";
-
-import colors from "../lib/colors";
-
-const Dot = styled.div`
-  width: 2px;
-  height: 2px;
-  z-index: 5;
-  border-radius: 1px;
-  position: absolute;
-  background-color: ${colors.turquoise};
-  border: 1px solid ${colors.turquoise};
-  // animation: 0.5s ${keyframes`${fadeIn}`};
-`;
-
-// background-color: #dcdcdc;
-
-const Wrapper = styled.div`
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-`;
+import Dot from "./Dot";
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
@@ -203,24 +179,19 @@ class Graphics extends Component {
       <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
         {items => {
           return (
-            <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
+            <div
+              className={"graphics-container"}
+              onMouseMove={this.handleMouseMove}
+              onTouchMove={this.handleTouchMove}
+            >
               {items.map(({ key, data, style }) => {
                 return data.line ? (
                   <Line key={key} from={data.from} to={data.to} color={data.color} style={style} />
                 ) : (
-                  <Dot
-                    key={key}
-                    style={{
-                      ...style,
-                      transform: `scale(${style.scale})`,
-                      WebkitTransform: `scale(${style.scale})`,
-                      left: data.x,
-                      top: data.y
-                    }}
-                  />
+                  <Dot key={key} point={{ x: data.x, y: data.y }} style={style} />
                 );
               })}
-            </Wrapper>
+            </div>
           );
         }}
       </TransitionMotion>

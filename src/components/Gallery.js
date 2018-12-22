@@ -1,31 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import { ParallaxBanner } from "react-scroll-parallax";
-
-const Container = styled.div`
-	display: flex;
-	margin-top: 10vh;
-	flex-direction: row;
-	flex-wrap: wrap;
-	white-space: nowrap;
-	align-items: center;
-	justify-content: center;
-	z-index: 10;
-	pointer-events: none;
-`;
-
-const Image = styled.img`
-	margin: 20px;
-	width: 600px;
-	height: 400px;
-	z-index: 100;
-	pointer-events: auto;
-	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
-	&:hover {
-		color: #afeeff;
-		transform: scale(1.01);
-	}
-`;
 
 // https://drive.google.com/file/d/FILE_ID/edit?usp=sharing
 // https://drive.google.com/uc?export=download&id=FILE_ID
@@ -109,19 +83,15 @@ const photos = [
 
 const Gallery = () => {
 	return (
-		<Container>
+		<div className={"gallery-container"}>
 			{photos.map((url, i) => (
 				<ParallaxBanner
+					key={i}
+					className={"image-wrapper"}
 					layers={[{ image: url, amount: 0.1 }]}
-					style={{
-						margin: "20px",
-						width: "600px",
-						height: "400px",
-						zIndex: "100"
-					}}
 				/>
 			))}
-		</Container>
+		</div>
 	);
 	// return (
 	// 	<Container>

@@ -7,9 +7,9 @@ const Dot = ({ point, style }) => {
 			style={{
 				...style,
 				left: point.x,
-				top: point.y,
-				transform: `scale(${style.scale})`,
-				WebkitTransform: `scale(${style.scale})`
+				top: point.y
+				// transform: `scale(${style.scale})`,
+				// WebkitTransform: `scale(${style.scale})`
 			}}
 		/>
 	);

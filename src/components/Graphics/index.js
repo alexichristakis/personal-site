@@ -9,7 +9,7 @@ import Dot from "./Dot";
 
 // const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const MAX_POINTS = 200;
+const MAX_POINTS = 80;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
@@ -44,99 +44,91 @@ class Graphics extends Component {
 
   handleMouseMove = ({ clientX, clientY }) => {
     if (this.distance({ x: clientX, y: clientY }, this.state.mouse) > POINT_DROP) {
-      // old rendering
-      const { points: old_points, connections: old_connections } = this.state;
+      const { styles: old_styles } = this.state;
 
-      // new points and connections
-      const [points, connections] = this.generateConnections(old_connections, [
-        // new point
-        {
-          x: clientX - Math.random() * 10,
-          y: clientY - Math.random() * 10,
-          connections: 0,
-          key: uuidv4()
-        },
-        ...old_points
-      ]);
+      const new_point = {
+        x: clientX - Math.random() * 10,
+        y: clientY - Math.random() * 10,
+        connections: 0,
+        key: uuidv4()
+      };
 
-      let styles = [
-        ...points.map(({ x, y, key }) => {
-          return {
-            key,
-            data: {
-              point: true,
-              x: x - 1,
-              y: y - 1
-            },
-            style: {
-              opacity: spring(1, SPRING_CONFIG),
-              scale: spring(1, SPRING_CONFIG)
-            }
-          };
-        }),
-        ...connections.map(({ to, from, key }) => {
-          return {
-            key,
-            data: {
-              line: true,
-              from,
-              to
-            },
-            style: {
-              opacity: spring(1, SPRING_CONFIG),
-              scale: spring(1, SPRING_CONFIG)
-            }
-          };
-        })
-      ];
+      const styles = this.update({ old_styles, new_point });
+      const new_points =
+        this.state.points.length > MAX_POINTS
+          ? [...this.state.points.slice(1), new_point]
+          : [...this.state.points, new_point];
 
       this.setState((prevState, props) => ({
         count: prevState.count + 1,
-        styles,
-        points,
-        connections,
-        mouse: { x: clientX, y: clientY }
+        mouse: { x: clientX, y: clientY },
+        points: new_points,
+        styles
       }));
     }
   };
 
-  distance = (p1, p2) => {
-    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
-  };
+  update = ({ old_styles, new_point }) => {
+    let p2 = { ...new_point, connections: 0 };
 
-  generateConnections = (connections, points) => {
-    let p2 = points[0];
-    let removed = points.length > MAX_POINTS ? points[MAX_POINTS] : { key: null };
+    // filter out old connections
+    const removed = this.state.points.length > MAX_POINTS ? this.state.points[0] : { key: null };
+    let styles = old_styles.filter(style => {
+      if (style.data.point) return style.key !== removed.key;
+      else return style.data.p1 !== removed.key && style.data.p2 !== removed.key;
+    });
 
-    let updated_points = points.slice(0, MAX_POINTS);
-    let updated_connections = connections.filter(
-      con => con.p1 !== removed.key && con.p2 !== removed.key
-    );
+    // let styles = old_styles.filter(
+    //   style =>
+    //     (style.data.point && style.key != removed.key) ||
+    //     (style.data.p1 != removed.key && style.data.p2 != removed.key)
+    // );
 
-    updated_points.forEach((p1, i) => {
-      if (p1.x !== p2.x && p1.y !== p2.y) {
+    let new_styles = [];
+    styles.forEach(style => {
+      new_styles.push(style);
+      if (style.data.point) {
+        let { data: p1 } = style;
         if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
-          let d = this.distance(p1, p2);
-          if (d < DIST - Math.random() * RANDOMNESS) {
-            // update number of connections
-            updated_points[0].connections++;
-            updated_points[i].connections++;
+          const d = this.distance(p1, p2);
 
-            // push that connection
-            const key = uuidv4();
-            updated_connections.push({
-              key,
-              p1: p1.key,
-              p2: p2.key,
-              from: { x: p1.x, y: p1.y },
-              to: { x: p2.x, y: p2.y }
+          if (d < DIST - Math.random() * RANDOMNESS) {
+            p1.connections++;
+            p2.connections++;
+
+            new_styles.push({
+              key: uuidv4(),
+              data: {
+                point: false,
+                p1: style.key,
+                p2: p2.key,
+                from: { x: p1.x, y: p1.y },
+                to: { x: p2.x, y: p2.y }
+              },
+              style: {
+                opacity: spring(1, SPRING_CONFIG),
+                scale: spring(1, SPRING_CONFIG)
+              }
             });
           }
         }
       }
     });
 
-    return [updated_points, updated_connections];
+    new_styles.push({
+      key: p2.key,
+      data: { point: true, connections: p2.connections, x: p2.x - 1, y: p2.y - 1 },
+      style: {
+        opacity: spring(1, SPRING_CONFIG),
+        scale: spring(1, SPRING_CONFIG)
+      }
+    });
+
+    return new_styles;
+  };
+
+  distance = (p1, p2) => {
+    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
   };
 
   handleTouchMove = e => {
@@ -162,18 +154,7 @@ class Graphics extends Component {
   };
 
   render() {
-    const { points, connections, styles } = this.state;
-
-    // return (
-    //   <Wrapper onMouseMove={this.handleMouseMove} onTouchMove={this.handleTouchMove}>
-    //     {connections.map(({ key, from, to }) => (
-    //       <Line key={key} from={from} to={to} />
-    //     ))}
-    //     {points.map(({ key, x, y }) => (
-    //       <Dot key={key} style={{ left: x, top: y }} />
-    //     ))}
-    //   </Wrapper>
-    // );
+    const { styles } = this.state;
 
     return (
       <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
@@ -185,10 +166,10 @@ class Graphics extends Component {
               onTouchMove={this.handleTouchMove}
             >
               {items.map(({ key, data, style }) => {
-                return data.line ? (
-                  <Line key={key} from={data.from} to={data.to} color={data.color} style={style} />
-                ) : (
+                return data.point ? (
                   <Dot key={key} point={{ x: data.x, y: data.y }} style={style} />
+                ) : (
+                  <Line key={key} from={data.from} to={data.to} style={style} />
                 );
               })}
             </div>

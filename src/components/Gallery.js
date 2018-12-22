@@ -1,37 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { Parallax } from "react-parallax";
-
-// import Image from "./Image";
-
-// const Wrapper = styled.div`
-// 	width: 100vw;
-// `;
-
-const Container = styled.div`
-	display: flex;
-	margin-top: 10vh;
-	flex-direction: row;
-	flex-wrap: wrap;
-	white-space: nowrap;
-	align-items: center;
-	justify-content: center;
-	z-index: 10;
-	pointer-events: none;
-`;
-
-const Image = styled.div`
-	margin: 20px;
-	width: 600px;
-	height: 400px;
-	z-index: 100;
-	pointer-events: auto;
-	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
-	&:hover {
-		color: #afeeff;
-		transform: scale(1.01);
-	}
-`;
+import { ParallaxBanner } from "react-scroll-parallax";
 
 // https://drive.google.com/file/d/FILE_ID/edit?usp=sharing
 // https://drive.google.com/uc?export=download&id=FILE_ID
@@ -88,24 +56,57 @@ const photos = [
 	require("../assets/images/_DSC9149.jpg"),
 	require("../assets/images/_DSC9248.jpg"),
 	require("../assets/images/_DSC9417.jpg"),
-	require("../assets/images/_DSC9422.jpg"),
+	// require("../assets/images/_DSC9422.jpg"),
 	require("../assets/images/_DSC9955.jpg")
 ];
 
+// <ParallaxBanner
+// 	className="your-class"
+// 	layers={[
+// 		{
+// 			image: "https://foo.com/foo.jpg",
+// 			amount: 0.1,
+// 			slowerScrollRate: false
+// 		},
+// 		{
+// 			image: "https://foo.com/bar.png",
+// 			amount: 0.2,
+// 			slowerScrollRate: false
+// 		}
+// 	]}
+// 	style={{
+// 		height: "500px"
+// 	}}
+// >
+// 	<h1>Banner Children</h1>
+// </ParallaxBanner>;
+
 const Gallery = () => {
 	return (
-		<Container>
-			{photos.map(url => {
-				return (
-					<Image>
-						<Parallax bgImage={url} strength={200}>
-							<div style={{ width: "600px", height: "400px" }} />
-						</Parallax>
-					</Image>
-				);
-			})}
-		</Container>
+		<div className={"gallery-container"}>
+			{photos.map((url, i) => (
+				<ParallaxBanner
+					key={i}
+					className={"image-wrapper"}
+					layers={[{ image: url, amount: 0.1 }]}
+				/>
+			))}
+		</div>
 	);
+	// return (
+	// 	<Container>
+	// 		{photos.map((url, i) => {
+	// 			return <Image key={i} src={url} />;
+	// 		})}
+	// 	</Container>
+	// );
 };
+/*
+<Image>
+	<Parallax bgImage={url} strength={200}>
+		<div style={{ width: "600px", height: "400px" }} />
+	</Parallax>
+</Image>
+*/
 
 export default Gallery;

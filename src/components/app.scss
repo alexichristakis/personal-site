@@ -1,0 +1,117 @@
+@import '../lib/colors';
+
+@keyframes bounceInUp {
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  from {
+    opacity: 0;
+    transform: translate3d(0, 3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -20px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, 10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.app-container {
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-container {
+	display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40vh;
+  margin-bottom: 40vh;
+  z-index: 10;
+}
+
+.link {
+	/*margin: 0.2em 0;*/
+  display: flex;
+  flex-direction: row;
+  font-size: 20pt;
+  /*margin-top: 20px;*/
+  color: $darkgray;
+  padding-left: 75px;
+  padding-right: 75px;
+  cursor: pointer;
+  transition: all 170ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
+  &:hover {
+    color: $turquoise;
+    transform: scale(1.25);
+  }
+}
+.link.large {
+	font-size: 30pt;
+}
+.link.space {
+	margin-top: 5px;
+}
+
+.gallery-container {
+	display: flex;
+	margin-top: 10vh;
+	flex-direction: row;
+	flex-wrap: wrap;
+	white-space: nowrap;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+	pointer-events: none;
+}
+
+.image-wrapper {
+	width: 600px !important;
+	height: 400px !important;
+	margin: 20px;
+	overflow: hidden;
+	pointer-events: auto;
+	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
+	&:hover {
+    transform: scale(1.01);
+  }
+}
+
+.absolute {
+	position: absolute;
+}
+
+.bouncy-div {
+	animation: bounceInUp; 
+	animation-duration: 1.5s;
+	position: absolute;
+	bottom: -20px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.chevron {
+	transform: scaleX(2);
+	color: $darkgray;
+}

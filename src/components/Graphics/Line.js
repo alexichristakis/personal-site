@@ -14,20 +14,13 @@ const Line = props => {
     0.5 * len * Math.sin(angle)}px) rotate(${angle}rad) scale(${style.scale})`;
 
   const computed_style = {
-    position: "absolute",
     transform: transform,
     WebkitTransform: transform,
     width: `${len}px`,
-    height: `${0}px`,
-    borderBottom: "0.5px solid #70809a",
-    zIndex: 1,
-    // borderBottom: "0.5px solid lightslategray",
-    // borderBottom: `0.5px solid ${color}`,
-
     ...style
   };
 
-  return <div style={computed_style} />;
+  return <div className={"line"} style={computed_style} />;
 };
 
 export default Line;

@@ -1,26 +1,26 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 import Graphics from "./Graphics";
 import ColorBackground from "./ColorBackground";
+import BouncyIcon from "./BouncyIcon";
 import Info from "./Info";
 import Gallery from "./Gallery";
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import "./app.scss";
 
 class App extends Component {
   render() {
     return (
-      <Wrapper>
-        <ColorBackground />
-        <Info />
-        <Gallery />
-        <Graphics />
-      </Wrapper>
+      <ParallaxProvider>
+        <div className={"app-container"}>
+          <ColorBackground />
+          <Info />
+          <BouncyIcon />
+          <Gallery />
+          <Graphics />
+        </div>
+      </ParallaxProvider>
     );
   }
 }

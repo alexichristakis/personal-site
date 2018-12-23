@@ -71,6 +71,21 @@
 	margin-top: 5px;
 }
 
+.resume-container {
+	position: fixed;
+	display: flex;
+	z-index: 20;
+	background-color: $graytrans;
+	height: 100vh;
+	width: 100vw;
+	align-items: center;
+	justify-content: center;
+}
+
+.resume {
+	height: 85vh;
+}
+
 .gallery-container {
 	display: flex;
 	margin-top: 10vh;

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Parallax } from "react-scroll-parallax";
 
+import Resume from "./Resume";
+
 // const resume_link = "https://drive.google.com/open?id=1TkXsFwqSSTloQX7oSnBewpa6WwgZ5qfq";
 const resume_link =
   "https://drive.google.com/uc?authuser=0&id=1TkXsFwqSSTloQX7oSnBewpa6WwgZ5qfq&export=download";
@@ -16,16 +18,11 @@ const sandbox_link = "https://sandboxatyale.com/";
 // const sandbox = "Sandbox".split("");
 
 class Info extends Component {
-  state = {
-    file: "",
-    loading: true
-  };
-
   render() {
     return (
       <div className={"info-container"}>
         <Parallax offsetYMax={200} offsetYMin={-200}>
-          <div className={"link large"} header onClick={() => window.open(resume_link)}>
+          <div className={"link large"} onClick={this.props.onClickName}>
             Alexi Christakis
           </div>
         </Parallax>

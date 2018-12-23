@@ -6,10 +6,10 @@ const Dot = ({ point, style }) => {
 			className={"dot"}
 			style={{
 				...style,
-				left: point.x,
-				top: point.y
-				// transform: `scale(${style.scale})`,
-				// WebkitTransform: `scale(${style.scale})`
+				left: point.x - 1,
+				top: point.y - 1,
+				transform: `scale(${style.scale})`,
+				WebkitTransform: `scale(${style.scale})`
 			}}
 		/>
 	);

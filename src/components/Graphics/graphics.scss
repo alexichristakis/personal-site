@@ -11,13 +11,12 @@
 }
 
 .dot {
-	width: 2px;
-  height: 2px;
+	width: 4px;
+  height: 4px;
   z-index: 5;
-  border-radius: 1px;
+  border-radius: 2px;
   position: absolute;
   background-color: $turquoise;
-  border: 1px solid $turquoise;
 }
 
 .line {

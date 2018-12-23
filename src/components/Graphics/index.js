@@ -7,9 +7,8 @@ import "./graphics.scss";
 import Line from "./Line";
 import Dot from "./Dot";
 
-// const SPRING_CONFIG = { stiffness: 60, damping: 15 };
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const MAX_POINTS = 80;
+const MAX_POINTS = 100;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
@@ -24,8 +23,7 @@ class Graphics extends Component {
       height: window.innerHeight
     },
     styles: [],
-    points: [],
-    connections: []
+    points: []
   };
 
   componentDidMount() {
@@ -117,7 +115,7 @@ class Graphics extends Component {
 
     new_styles.push({
       key: p2.key,
-      data: { point: true, connections: p2.connections, x: p2.x - 1, y: p2.y - 1 },
+      data: { point: true, connections: p2.connections, x: p2.x, y: p2.y },
       style: {
         opacity: spring(1, SPRING_CONFIG),
         scale: spring(1, SPRING_CONFIG)
@@ -147,7 +145,6 @@ class Graphics extends Component {
   willEnter = style => {
     return {
       ...style.style,
-      // opacity: 0.5,
       opacity: 0.9,
       scale: 0
     };

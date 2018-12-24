@@ -24,14 +24,12 @@ class App extends Component {
   };
 
   render() {
+    const { resume_visible } = this.state;
     return (
       <ParallaxProvider>
         <div className={"app-container"}>
           <ColorBackground />
-          <Resume
-            visible={this.state.resume_visible}
-            onClickBackground={this.handleOnClickBackground}
-          />
+          <Resume visible={resume_visible} onClickBackground={this.handleOnClickBackground} />
           <Info onClickName={this.handleOnClickName} />
           <BouncyIcon />
           <Gallery />

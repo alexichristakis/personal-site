@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { TransitionMotion, spring } from "react-motion";
 import uuidv4 from "uuid/v4";
 
-import "./graphics.scss";
-
 import Line from "./Line";
 import Dot from "./Dot";
 
@@ -44,6 +42,7 @@ class Graphics extends Component {
     if (this.distance({ x: clientX, y: clientY }, this.state.mouse) > POINT_DROP) {
       const { styles: old_styles } = this.state;
 
+      // generate new point
       const new_point = {
         x: clientX - Math.random() * 10,
         y: clientY - Math.random() * 10,
@@ -51,12 +50,16 @@ class Graphics extends Component {
         key: uuidv4()
       };
 
+      // update connections
       const styles = this.update({ old_styles, new_point });
+
+      // update points
       const new_points =
         this.state.points.length > MAX_POINTS
           ? [...this.state.points.slice(1), new_point]
           : [...this.state.points, new_point];
 
+      // update state
       this.setState((prevState, props) => ({
         count: prevState.count + 1,
         mouse: { x: clientX, y: clientY },
@@ -88,9 +91,7 @@ class Graphics extends Component {
       if (style.data.point) {
         let { data: p1 } = style;
         if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
-          const d = this.distance(p1, p2);
-
-          if (d < DIST - Math.random() * RANDOMNESS) {
+          if (this.distance(p1, p2) < DIST - Math.random() * RANDOMNESS) {
             p1.connections++;
             p2.connections++;
 
@@ -100,8 +101,8 @@ class Graphics extends Component {
                 point: false,
                 p1: style.key,
                 p2: p2.key,
-                from: { x: p1.x, y: p1.y },
-                to: { x: p2.x, y: p2.y }
+                from: p1,
+                to: p2
               },
               style: {
                 opacity: spring(1, SPRING_CONFIG),
@@ -113,9 +114,11 @@ class Graphics extends Component {
       }
     });
 
+    const { key, connections, x, y } = p2;
+
     new_styles.push({
-      key: p2.key,
-      data: { point: true, connections: p2.connections, x: p2.x, y: p2.y },
+      key: key,
+      data: { point: true, connections: connections, x: x, y: y },
       style: {
         opacity: spring(1, SPRING_CONFIG),
         scale: spring(1, SPRING_CONFIG)
@@ -134,17 +137,17 @@ class Graphics extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  willLeave = style => {
+  willLeave = ({ style }) => {
     return {
-      ...style.style,
+      ...style,
       opacity: spring(0, SPRING_CONFIG),
       scale: spring(0, SPRING_CONFIG)
     };
   };
 
-  willEnter = style => {
+  willEnter = ({ style }) => {
     return {
-      ...style.style,
+      ...style,
       opacity: 0.9,
       scale: 0
     };

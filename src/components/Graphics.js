@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-import { TransitionMotion, spring } from "react-motion";
 import uuidv4 from "uuid/v4";
-
-import Line from "./Line";
-import Dot from "./Dot";
 
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
 const MAX_POINTS = 200;
@@ -110,24 +106,24 @@ class Graphics extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  willLeave = ({ style }) => {
-    return {
-      ...style,
-      opacity: spring(0, SPRING_CONFIG),
-      scale: spring(0, SPRING_CONFIG)
-    };
-  };
+  // willLeave = ({ style }) => {
+  //   return {
+  //     ...style,
+  //     opacity: spring(0, SPRING_CONFIG),
+  //     scale: spring(0, SPRING_CONFIG)
+  //   };
+  // };
 
-  willEnter = ({ style }) => {
-    return {
-      ...style,
-      opacity: 0.9,
-      scale: 0
-    };
-  };
+  // willEnter = ({ style }) => {
+  //   return {
+  //     ...style,
+  //     opacity: 0.9,
+  //     scale: 0
+  //   };
+  // };
 
   render() {
-    const { styles, points, connections, screen } = this.state;
+    const { points, connections, screen } = this.state;
 
     return (
       <div
@@ -152,28 +148,6 @@ class Graphics extends Component {
         </svg>
       </div>
     );
-
-    // return (
-    //   <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
-    //     {items => {
-    //       return (
-    //         <div
-    //           className={"graphics-container"}
-    //           onMouseMove={this.handleMouseMove}
-    //           onTouchMove={this.handleTouchMove}
-    //         >
-    //           {items.map(({ key, data, style }) => {
-    //             return data.point ? (
-    //               <Dot key={key} point={{ x: data.x, y: data.y }} style={style} />
-    //             ) : (
-    //               <Line key={key} from={data.from} to={data.to} style={style} />
-    //             );
-    //           })}
-    //         </div>
-    //       );
-    //     }}
-    //   </TransitionMotion>
-    // );
   }
 }
 

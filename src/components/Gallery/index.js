@@ -1,5 +1,8 @@
 import React from "react";
+import { Element } from "react-scroll";
 import { ParallaxBanner } from "react-scroll-parallax";
+
+import "./Gallery.scss";
 
 // https://drive.google.com/file/d/FILE_ID/edit?usp=sharing
 // https://drive.google.com/uc?export=download&id=FILE_ID
@@ -33,31 +36,31 @@ import { ParallaxBanner } from "react-scroll-parallax";
 // ];
 
 const photos = [
-	require("../assets/images/_DSC0391.jpg"),
-	require("../assets/images/_DSC0476.jpg"),
-	require("../assets/images/_DSC0513.jpg"),
-	require("../assets/images/_DSC0948.jpg"),
-	require("../assets/images/_DSC0985-Pano.jpg"),
-	require("../assets/images/_DSC1379-Pano.jpg"),
-	require("../assets/images/_DSC4216.jpg"),
-	require("../assets/images/_DSC4410.jpg"),
-	require("../assets/images/_DSC4417.jpg"),
-	require("../assets/images/_DSC4456.jpg"),
-	require("../assets/images/_DSC4726.jpg"),
-	require("../assets/images/_DSC5377-2.jpg"),
-	require("../assets/images/_DSC6575.jpg"),
-	require("../assets/images/_DSC6845.jpg"),
-	require("../assets/images/_DSC7320.jpg"),
-	require("../assets/images/_DSC8250.jpg"),
-	require("../assets/images/_DSC8267.jpg"),
-	require("../assets/images/_DSC8274.jpg"),
-	// require("../assets/images/_DSC8287.jpg"),
-	require("../assets/images/_DSC8294.jpg"),
-	require("../assets/images/_DSC9149.jpg"),
-	require("../assets/images/_DSC9248.jpg"),
-	require("../assets/images/_DSC9417.jpg"),
-	// require("../assets/images/_DSC9422.jpg"),
-	require("../assets/images/_DSC9955.jpg")
+	require("../../assets/images/_DSC0391.jpg"),
+	require("../../assets/images/_DSC0476.jpg"),
+	require("../../assets/images/_DSC0513.jpg"),
+	require("../../assets/images/_DSC0948.jpg"),
+	require("../../assets/images/_DSC0985-Pano.jpg"),
+	require("../../assets/images/_DSC1379-Pano.jpg"),
+	require("../../assets/images/_DSC4216.jpg"),
+	require("../../assets/images/_DSC4410.jpg"),
+	require("../../assets/images/_DSC4417.jpg"),
+	require("../../assets/images/_DSC4456.jpg"),
+	require("../../assets/images/_DSC4726.jpg"),
+	require("../../assets/images/_DSC5377-2.jpg"),
+	require("../../assets/images/_DSC6575.jpg"),
+	require("../../assets/images/_DSC6845.jpg"),
+	require("../../assets/images/_DSC7320.jpg"),
+	require("../../assets/images/_DSC8250.jpg"),
+	require("../../assets/images/_DSC8267.jpg"),
+	require("../../assets/images/_DSC8274.jpg"),
+	// require("../../assets/images/_DSC8287.jpg"),
+	require("../../assets/images/_DSC8294.jpg"),
+	require("../../assets/images/_DSC9149.jpg"),
+	require("../../assets/images/_DSC9248.jpg"),
+	require("../../assets/images/_DSC9417.jpg"),
+	// require("../../assets/images/_DSC9422.jpg"),
+	require("../../assets/images/_DSC9955.jpg")
 ];
 
 // <ParallaxBanner
@@ -81,26 +84,14 @@ const photos = [
 // 	<h1>Banner Children</h1>
 // </ParallaxBanner>;
 
-const Gallery = () => {
-	return (
-		<div className={"gallery-container"}>
-			{photos.map((url, i) => (
-				<ParallaxBanner
-					key={i}
-					className={"image-wrapper"}
-					layers={[{ image: url, amount: 0.1 }]}
-				/>
-			))}
-		</div>
-	);
-	// return (
-	// 	<Container>
-	// 		{photos.map((url, i) => {
-	// 			return <Image key={i} src={url} />;
-	// 		})}
-	// 	</Container>
-	// );
-};
+const Gallery = () => (
+	<Element className="gallery-container" name="about-section">
+		{photos.map((url, i) => (
+			<ParallaxBanner key={i} className="image-wrapper" layers={[{ image: url, amount: 0.1 }]} />
+		))}
+	</Element>
+);
+
 /*
 <Image>
 	<Parallax bgImage={url} strength={200}>

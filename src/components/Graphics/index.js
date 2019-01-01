@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import uuidv4 from "uuid/v4";
 
+import "./Graphics.scss";
+
 const SPRING_CONFIG = { stiffness: 215, damping: 20 };
 const MAX_POINTS = 200;
 const MAX_CONNECTIONS = 60;
@@ -12,27 +14,9 @@ class Graphics extends Component {
   state = {
     count: 0,
     mouse: { x: 0, y: 0 },
-    screen: {
-      width: window.innerWidth,
-      height: window.innerHeight
-    },
     styles: [],
     points: [],
     connections: []
-  };
-
-  componentDidMount() {
-    window.addEventListener("resize", this.onResize);
-    this.onResize();
-  }
-
-  onResize = () => {
-    this.setState({
-      screen: {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
-    });
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
@@ -106,24 +90,9 @@ class Graphics extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  // willLeave = ({ style }) => {
-  //   return {
-  //     ...style,
-  //     opacity: spring(0, SPRING_CONFIG),
-  //     scale: spring(0, SPRING_CONFIG)
-  //   };
-  // };
-
-  // willEnter = ({ style }) => {
-  //   return {
-  //     ...style,
-  //     opacity: 0.9,
-  //     scale: 0
-  //   };
-  // };
-
   render() {
-    const { points, connections, screen } = this.state;
+    const { points, connections } = this.state;
+    const { screen } = this.props;
 
     return (
       <div
@@ -134,16 +103,24 @@ class Graphics extends Component {
         <svg width={screen.width} height={screen.height}>
           {connections.map(({ key, p1, p2 }) => (
             <line
+              className="line"
               key={key}
               x1={p1.x}
               y1={p1.y}
               x2={p2.x}
               y2={p2.y}
-              style={{ stroke: "#70809a", strokeWidth: 1 }}
+              // style={{ stroke: "#70809a", strokeWidth: 1 }}
             />
           ))}
           {points.map(({ key, x, y }) => (
-            <circle key={key} cx={x} cy={y} r="2" fill="#afeeff" />
+            <circle
+              className="dot"
+              key={key}
+              cx={x}
+              cy={y}
+              r="2"
+              // fill="#afeeff"
+            />
           ))}
         </svg>
       </div>

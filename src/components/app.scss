@@ -38,30 +38,16 @@
   align-items: center;
 }
 
-.graphics-container {
-	position: sticky;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100vw;
-	height: 100vh;
+.content-container {
+	/*top: -200vh;*/
+		display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.dot {
-	width: 4px;
-  height: 4px;
-  z-index: 5;
-  border-radius: 2px;
-  position: absolute;
-  background-color: $turquoise;
-}
-
-.line {
-	position: absolute;
-	height: 0px;
-	border-bottom: 0.5px solid $darkgray;
-	z-index: 1;
+.content-container {
+	transform: translateY(-200vh);
+  pointer-events: none;
 }
 
 .info-container {
@@ -72,6 +58,7 @@
   margin-top: 40vh;
   margin-bottom: 40vh;
   z-index: 10;
+  pointer-events: auto;
 }
 
 .link {
@@ -91,7 +78,7 @@
   }
 }
 
-@keyframes draw {
+@keyframes draw-name {
   0% {
     stroke-dasharray: 200 540;
     stroke-dashoffset: -434;
@@ -114,19 +101,19 @@
   top: -83px;
 }
 
-.svg-wrapper {
+.svg-wrapper-name {
   height: 60px;
 	margin: 0 auto;
   position: relative;
   cursor: pointer;
 }
 
-.svg-wrapper:hover .shape {
-  -webkit-animation: 0.5s draw linear forwards;
-  animation: 0.5s draw linear forwards;
+.svg-wrapper-name:hover .shape-name {
+  -webkit-animation: 0.5s draw-name linear forwards;
+  animation: 0.5s draw-name linear forwards;
 }
 
-.shape {
+.shape-name {
   fill: transparent;
   stroke-dasharray: 200 540;
   stroke-dashoffset: -434;
@@ -149,30 +136,6 @@
 	height: 85vh;
 	background-color: white;
 	cursor: pointer;
-	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
-	&:hover {
-    transform: scale(1.01);
-  }
-}
-
-.gallery-container {
-	display: flex;
-	margin-top: 10vh;
-	flex-direction: row;
-	flex-wrap: wrap;
-	white-space: nowrap;
-	align-items: center;
-	justify-content: center;
-	z-index: 10;
-	pointer-events: none;
-}
-
-.image-wrapper {
-	width: 600px !important;
-	height: 400px !important;
-	margin: 20px;
-	overflow: hidden;
-	pointer-events: auto;
 	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
 	&:hover {
     transform: scale(1.01);

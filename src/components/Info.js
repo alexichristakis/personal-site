@@ -8,36 +8,34 @@ const github_link = "https://github.com/alexichristakis";
 const linkedin_link = "https://www.linkedin.com/in/alexi-christakis-b53b9214b/";
 const sandbox_link = "https://sandboxatyale.com/";
 
-const Info = ({ onClickName }) => {
-  return (
-    <div className={"info-container"}>
-      <Parallax offsetYMax={"200px"} offsetYMin={"-200px"}>
-        <div className="svg-wrapper">
-          <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
-            <rect className="shape" height="60" width="320" />
-          </svg>
-          <h1 className="name" onClick={onClickName}>
-            Alexi Christakis
-          </h1>
-        </div>
-      </Parallax>
-      <Parallax offsetYMax={"100px"} offsetYMin={"-100px"}>
-        <h1 className="link" onClick={() => window.open(github_link)}>
-          GitHub
+const Info = ({ onClickName }) => (
+  <div className={"info-container"}>
+    <Parallax offsetYMax={"200px"} offsetYMin={"-200px"}>
+      <div className="svg-wrapper-name">
+        <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+          <rect className="shape-name" height="60" width="320" />
+        </svg>
+        <h1 className="name" onClick={onClickName}>
+          Alexi Christakis
         </h1>
-      </Parallax>
-
-      <h1 className="link" onClick={() => window.open(linkedin_link)}>
-        LinkedIn
+      </div>
+    </Parallax>
+    <Parallax offsetYMax={"100px"} offsetYMin={"-100px"}>
+      <h1 className="link" onClick={() => window.open(github_link)}>
+        GitHub
       </h1>
+    </Parallax>
 
-      <Parallax offsetYMax={"140px"} offsetYMin={"-100px"} slowerScrollRate>
-        <h1 className="link" onClick={() => window.open(sandbox_link)}>
-          Sandbox
-        </h1>
-      </Parallax>
-    </div>
-  );
-};
+    <h1 className="link" onClick={() => window.open(linkedin_link)}>
+      LinkedIn
+    </h1>
+
+    <Parallax offsetYMax={"140px"} offsetYMin={"-100px"} slowerScrollRate>
+      <h1 className="link" onClick={() => window.open(sandbox_link)}>
+        Sandbox
+      </h1>
+    </Parallax>
+  </div>
+);
 
 export default Info;

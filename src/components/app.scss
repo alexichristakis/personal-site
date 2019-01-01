@@ -38,30 +38,17 @@
   align-items: center;
 }
 
-.graphics-container {
-	position: sticky;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	width: 100vw;
-	height: 100vh;
+.content-container {
+	display: flex;
+  flex-direction: column;
+  transform: translateY(-200vh);
+  pointer-events: none;
 }
 
-.dot {
-	width: 4px;
-  height: 4px;
-  z-index: 5;
-  border-radius: 2px;
-  position: absolute;
-  background-color: $turquoise;
-}
-
-.line {
-	position: absolute;
-	height: 0px;
-	border-bottom: 0.5px solid $darkgray;
-	z-index: 1;
+.section-container {
+  display: flex;
+  margin-top: 100px;
+  padding: 50px 0px 0px 75px;
 }
 
 .info-container {
@@ -72,27 +59,69 @@
   margin-top: 40vh;
   margin-bottom: 40vh;
   z-index: 10;
+  pointer-events: none;
 }
 
 .link {
+	margin: 5px;
   display: flex;
   flex-direction: row;
   font-size: 20pt;
+  font-weight: normal;
   color: $darkgray;
   padding-left: 75px;
   padding-right: 75px;
   cursor: pointer;
+  pointer-events: auto;
   transition: all 170ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
     color: $turquoise;
-    transform: scale(1.25);
+    transform: scale(1.2);
   }
 }
-.link.large {
-	font-size: 30pt;
+
+@keyframes draw-name-in {
+  0% {
+    stroke-dasharray: 200 540;
+    stroke-dashoffset: -434;
+    stroke-width: 8px;
+  }
+  100% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 4px;
+  }
 }
-.link.space {
-	margin-top: 5px;
+
+.name {
+	font-size: 32pt;
+	line-height: 32px;
+	font-weight: normal;
+	text-align: center;
+  color: $darkgray;
+  position: relative;
+  top: -52px;
+}
+
+.svg-wrapper-name {
+  pointer-events: auto;
+  height: 60px;
+	margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.svg-wrapper-name:hover .shape-name {
+  -webkit-animation: 0.5s draw-name-in linear forwards;
+  animation: 0.5s draw-name-in linear forwards;
+}
+
+.shape-name {
+  fill: transparent;
+  stroke-dasharray: 200 540;
+  stroke-dashoffset: -434;
+  stroke-width: 8px;
+  stroke: $turquoise;
 }
 
 .resume-container {
@@ -110,30 +139,6 @@
 	height: 85vh;
 	background-color: white;
 	cursor: pointer;
-	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
-	&:hover {
-    transform: scale(1.01);
-  }
-}
-
-.gallery-container {
-	display: flex;
-	margin-top: 10vh;
-	flex-direction: row;
-	flex-wrap: wrap;
-	white-space: nowrap;
-	align-items: center;
-	justify-content: center;
-	z-index: 10;
-	pointer-events: none;
-}
-
-.image-wrapper {
-	width: 600px !important;
-	height: 400px !important;
-	margin: 20px;
-	overflow: hidden;
-	pointer-events: auto;
 	transition: all 250ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
 	&:hover {
     transform: scale(1.01);

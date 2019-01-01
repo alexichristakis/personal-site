@@ -1,0 +1,90 @@
+@import "../../lib/colors.scss";
+
+@keyframes draw-section-in {
+  0% {
+    stroke-dasharray: 34 540;
+    stroke-dashoffset: -210;
+    stroke-width: 8px;
+  }
+  100% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 4px;
+  }
+}
+
+@keyframes draw-section-out {
+  0% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 4px;
+  }
+  100% {
+    stroke-dasharray: 34 540;
+    stroke-dashoffset: -210;
+    stroke-width: 8px;
+  } 
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: sticky;
+  align-self: flex-start;
+  pointer-events: none;
+  top: 0;
+  margin-left: 15px;
+  z-index: 10;
+  height: 100vh;
+  margin-top: 100vh;
+}
+
+.sidebar-section-container {
+  margin: 0;
+  cursor: pointer;
+}
+
+.sibebar-section-active .shape-section {
+  -webkit-animation: 0.5s draw-section linear forwards;
+  animation: 0.5s draw-section linear forwards;
+}
+
+.sidebar-section-title {
+  margin: 0;
+  transform: translateX(-43px);
+  font-weight: normal;
+  font-size: 12pt;
+  color: $lightgray;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+.svg-wrapper-section {
+  height: 60px;
+	margin: 0 auto;
+	display: flex;
+  position: relative;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.svg-wrapper-section:hover .shape-section {
+  -webkit-animation: draw-section-in 0.5s linear forwards;
+  animation: draw-section-in 0.5s linear forwards;
+}
+
+.sidebar-section-active .shape-section {
+	-webkit-animation: draw-section-in 0.5s linear forwards;
+  animation: draw-section-in 0.5s linear forwards;
+}
+
+.shape-section {
+  fill: transparent;
+  stroke-dasharray: 34 540;
+  stroke-dashoffset: -210;
+  stroke-width: 8px;
+  stroke: $turquoise;
+  -webkit-animation: draw-section-out 0.25s linear forwards;
+ 	animation: draw-section-out 0.25s linear forwards;
+}

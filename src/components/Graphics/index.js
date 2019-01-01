@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import { TransitionMotion, spring } from "react-motion";
 import uuidv4 from "uuid/v4";
 
-import Line from "./Line";
-import Dot from "./Dot";
+import "./Graphics.scss";
 
-const SPRING_CONFIG = { stiffness: 215, damping: 20 };
-const MAX_POINTS = 100;
+const MAX_POINTS = 200;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
 const DIST = 150;
@@ -16,31 +13,14 @@ class Graphics extends Component {
   state = {
     count: 0,
     mouse: { x: 0, y: 0 },
-    screen: {
-      width: window.innerWidth,
-      height: window.innerHeight
-    },
     styles: [],
-    points: []
-  };
-
-  componentDidMount() {
-    window.addEventListener("resize", this.onResize);
-    this.onResize();
-  }
-
-  onResize = () => {
-    this.setState({
-      screen: {
-        width: window.innerWidth,
-        height: window.innerHeight
-      }
-    });
+    points: [],
+    connections: []
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
     if (this.distance({ x: clientX, y: clientY }, this.state.mouse) > POINT_DROP) {
-      const { styles: old_styles } = this.state;
+      const { points: old_points, connections: old_connections } = this.state;
 
       // generate new point
       const new_point = {
@@ -51,81 +31,53 @@ class Graphics extends Component {
       };
 
       // update connections
-      const styles = this.update({ old_styles, new_point });
-
-      // update points
-      const new_points =
-        this.state.points.length > MAX_POINTS
-          ? [...this.state.points.slice(1), new_point]
-          : [...this.state.points, new_point];
+      const { new_connections, new_points } = this.update({
+        old_points,
+        old_connections,
+        new_point
+      });
 
       // update state
       this.setState((prevState, props) => ({
         count: prevState.count + 1,
         mouse: { x: clientX, y: clientY },
         points: new_points,
-        styles
+        connections: new_connections
       }));
     }
   };
 
-  update = ({ old_styles, new_point }) => {
-    let p2 = { ...new_point, connections: 0 };
+  update = ({ old_connections, old_points, new_point }) => {
+    let old_point = old_points.length > MAX_POINTS ? old_points[0] : { key: null };
 
-    // filter out old connections
-    const removed = this.state.points.length > MAX_POINTS ? this.state.points[0] : { key: null };
-    let styles = old_styles.filter(style => {
-      if (style.data.point) return style.key !== removed.key;
-      else return style.data.p1 !== removed.key && style.data.p2 !== removed.key;
-    });
+    let new_points =
+      old_points.length > MAX_POINTS
+        ? [...old_points.slice(1), new_point]
+        : [...old_points, new_point];
 
-    // let styles = old_styles.filter(
-    //   style =>
-    //     (style.data.point && style.key != removed.key) ||
-    //     (style.data.p1 != removed.key && style.data.p2 != removed.key)
-    // );
+    let new_connections = old_connections.filter(
+      e => e.p1.key !== old_point.key && e.p2.key !== old_point.key
+    );
 
-    let new_styles = [];
-    styles.forEach(style => {
-      new_styles.push(style);
-      if (style.data.point) {
-        let { data: p1 } = style;
-        if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
-          if (this.distance(p1, p2) < DIST - Math.random() * RANDOMNESS) {
-            p1.connections++;
-            p2.connections++;
+    let p2 = new_points[new_points.length - 1];
+    new_points.forEach(p1 => {
+      if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
+        if (this.distance(p1, p2) < DIST - Math.random() * RANDOMNESS) {
+          // update number of connections
+          p1.connections++;
+          p2.connections++;
 
-            new_styles.push({
-              key: uuidv4(),
-              data: {
-                point: false,
-                p1: style.key,
-                p2: p2.key,
-                from: p1,
-                to: p2
-              },
-              style: {
-                opacity: spring(1, SPRING_CONFIG),
-                scale: spring(1, SPRING_CONFIG)
-              }
-            });
-          }
+          // push that connection
+          new_connections.push({
+            key: uuidv4(),
+            p1: { x: p1.x, y: p1.y, key: p1.key },
+            p2: { x: p2.x, y: p2.y, key: p2.key }
+          });
         }
       }
     });
 
-    const { key, connections, x, y } = p2;
-
-    new_styles.push({
-      key: key,
-      data: { point: true, connections: connections, x: x, y: y },
-      style: {
-        opacity: spring(1, SPRING_CONFIG),
-        scale: spring(1, SPRING_CONFIG)
-      }
-    });
-
-    return new_styles;
+    return { new_connections, new_points };
   };
 
   distance = (p1, p2) => {
@@ -137,45 +89,25 @@ class Graphics extends Component {
     this.handleMouseMove(e.touches[0]);
   };
 
-  willLeave = ({ style }) => {
-    return {
-      ...style,
-      opacity: spring(0, SPRING_CONFIG),
-      scale: spring(0, SPRING_CONFIG)
-    };
-  };
-
-  willEnter = ({ style }) => {
-    return {
-      ...style,
-      opacity: 0.9,
-      scale: 0
-    };
-  };
-
   render() {
-    const { styles } = this.state;
+    const { points, connections } = this.state;
+    const { screen } = this.props;
 
     return (
-      <TransitionMotion willLeave={this.willLeave} willEnter={this.willEnter} styles={styles}>
-        {items => {
-          return (
-            <div
-              className={"graphics-container"}
-              onMouseMove={this.handleMouseMove}
-              onTouchMove={this.handleTouchMove}
-            >
-              {items.map(({ key, data, style }) => {
-                return data.point ? (
-                  <Dot key={key} point={{ x: data.x, y: data.y }} style={style} />
-                ) : (
-                  <Line key={key} from={data.from} to={data.to} style={style} />
-                );
-              })}
-            </div>
-          );
-        }}
-      </TransitionMotion>
+      <div
+        className="graphics-container"
+        onMouseMove={this.handleMouseMove}
+        onTouchMove={this.handleTouchMove}
+      >
+        <svg width={screen.width} height={screen.height}>
+          {connections.map(({ key, p1, p2 }) => (
+            <line className="line" key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} />
+          ))}
+          {points.map(({ key, x, y }) => (
+            <circle className="dot" key={key} cx={x} cy={y} r="2" />
+          ))}
+        </svg>
+      </div>
     );
   }
 }

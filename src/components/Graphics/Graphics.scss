@@ -1,0 +1,18 @@
+@import "../../lib/colors.scss";
+
+.graphics-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.line {
+	stroke: $darkgray;
+	stroke-width: 1;
+}
+
+.dot {
+	fill: $turquoise;
+}

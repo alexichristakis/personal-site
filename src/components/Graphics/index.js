@@ -102,25 +102,10 @@ class Graphics extends Component {
       >
         <svg width={screen.width} height={screen.height}>
           {connections.map(({ key, p1, p2 }) => (
-            <line
-              className="line"
-              key={key}
-              x1={p1.x}
-              y1={p1.y}
-              x2={p2.x}
-              y2={p2.y}
-              // style={{ stroke: "#70809a", strokeWidth: 1 }}
-            />
+            <line className="line" key={key} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y} />
           ))}
           {points.map(({ key, x, y }) => (
-            <circle
-              className="dot"
-              key={key}
-              cx={x}
-              cy={y}
-              r="2"
-              // fill="#afeeff"
-            />
+            <circle className="dot" key={key} cx={x} cy={y} r="2" />
           ))}
         </svg>
       </div>

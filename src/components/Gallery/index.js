@@ -63,41 +63,11 @@ const photos = [
 	require("../../assets/images/_DSC9955.jpg")
 ];
 
-// <ParallaxBanner
-// 	className="your-class"
-// 	layers={[
-// 		{
-// 			image: "https://foo.com/foo.jpg",
-// 			amount: 0.1,
-// 			slowerScrollRate: false
-// 		},
-// 		{
-// 			image: "https://foo.com/bar.png",
-// 			amount: 0.2,
-// 			slowerScrollRate: false
-// 		}
-// 	]}
-// 	style={{
-// 		height: "500px"
-// 	}}
-// >
-// 	<h1>Banner Children</h1>
-// </ParallaxBanner>;
-
 const Gallery = () => (
-	<Element className="gallery-container" name="about-section">
+	<Element className="gallery-container" name="photo-section">
 		{photos.map((url, i) => (
 			<ParallaxBanner key={i} className="image-wrapper" layers={[{ image: url, amount: 0.1 }]} />
 		))}
 	</Element>
 );
-
-/*
-<Image>
-	<Parallax bgImage={url} strength={200}>
-		<div style={{ width: "600px", height: "400px" }} />
-	</Parallax>
-</Image>
-*/
-
 export default Gallery;

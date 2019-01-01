@@ -6,8 +6,13 @@ import SideBar from "./SideBar";
 import ColorBackground from "./ColorBackground";
 import BouncyIcon from "./BouncyIcon";
 import Info from "./Info";
-import Gallery from "./Gallery";
 import Resume from "./Resume";
+
+// content
+import About from "./About";
+import Gallery from "./Gallery";
+import Design from "./Design";
+import Code from "./Code";
 
 import "./App.scss";
 
@@ -47,22 +52,19 @@ class App extends Component {
     return (
       <ParallaxProvider>
         <div className="app-container">
-          {/* background */}
           <ColorBackground />
           <Graphics screen={screen} />
 
           <SideBar />
           <Resume visible={resume_visible} onClickBackground={this.handleOnClickBackground} />
 
-          {/* content */}
           <div className="content-container">
             <Info onClickName={this.handleOnClickName} />
             <BouncyIcon />
-            {/*<About />
-                        <Photos />
-                        <Design />
-                        <Code />*/}
+            <About />
             <Gallery />
+            <Design />
+            <Code />
           </div>
         </div>
       </ParallaxProvider>

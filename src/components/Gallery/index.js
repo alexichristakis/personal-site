@@ -72,8 +72,8 @@ const photos = [
 const Gallery = () => (
 	<Element className="section-container gallery" name="photo-section">
 		{photos.map(({ image, caption }, i) => (
-			<div className="image-container">
-				<ParallaxBanner key={i} className="image-wrapper" layers={[{ image, amount: 0.1 }]} />
+			<div key={i} className="image-container">
+				<ParallaxBanner className="image-wrapper" layers={[{ image, amount: 0.1 }]} />
 				<h2 className="photo-caption">{caption}</h2>
 			</div>
 		))}

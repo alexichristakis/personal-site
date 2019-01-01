@@ -21,19 +21,19 @@ const Info = ({ onClickName }) => (
       </div>
     </Parallax>
     <Parallax offsetYMax={"100px"} offsetYMin={"-100px"}>
-      <h1 className="link" onClick={() => window.open(github_link)}>
+      <h2 className="link" onClick={() => window.open(github_link)}>
         GitHub
-      </h1>
+      </h2>
     </Parallax>
 
-    <h1 className="link" onClick={() => window.open(linkedin_link)}>
+    <h2 className="link" onClick={() => window.open(linkedin_link)}>
       LinkedIn
-    </h1>
+    </h2>
 
     <Parallax offsetYMax={"140px"} offsetYMin={"-100px"} slowerScrollRate>
-      <h1 className="link" onClick={() => window.open(sandbox_link)}>
+      <h2 className="link" onClick={() => window.open(sandbox_link)}>
         Sandbox
-      </h1>
+      </h2>
     </Parallax>
   </div>
 );

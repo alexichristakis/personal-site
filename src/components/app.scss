@@ -32,6 +32,17 @@
   }
 }
 
+h1 {
+  font-size: 32pt;
+  font-weight: normal;
+  margin: 0px;
+}
+
+h2 {
+  font-size: 20pt;
+  font-weight: normal;
+}
+
 .app-container {
 	display: flex;
   flex-direction: column;
@@ -66,8 +77,8 @@
 	margin: 5px;
   display: flex;
   flex-direction: row;
-  font-size: 20pt;
-  font-weight: normal;
+  /*font-size: 20pt;*/
+  /*font-weight: normal;*/
   color: $darkgray;
   padding-left: 75px;
   padding-right: 75px;
@@ -94,9 +105,9 @@
 }
 
 .name {
-	font-size: 32pt;
+	/*font-size: 32pt;*/
 	line-height: 32px;
-	font-weight: normal;
+	/*font-weight: normal;*/
 	text-align: center;
   color: $darkgray;
   position: relative;

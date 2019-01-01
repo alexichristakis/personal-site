@@ -36,37 +36,46 @@ import "./Gallery.scss";
 // ];
 
 const photos = [
-	require("../../assets/images/_DSC0391.jpg"),
-	require("../../assets/images/_DSC0476.jpg"),
-	require("../../assets/images/_DSC0513.jpg"),
-	require("../../assets/images/_DSC0948.jpg"),
-	require("../../assets/images/_DSC0985-Pano.jpg"),
-	require("../../assets/images/_DSC1379-Pano.jpg"),
-	require("../../assets/images/_DSC4216.jpg"),
-	require("../../assets/images/_DSC4410.jpg"),
-	require("../../assets/images/_DSC4417.jpg"),
-	require("../../assets/images/_DSC4456.jpg"),
-	require("../../assets/images/_DSC4726.jpg"),
-	require("../../assets/images/_DSC5377-2.jpg"),
-	require("../../assets/images/_DSC6575.jpg"),
-	require("../../assets/images/_DSC6845.jpg"),
-	require("../../assets/images/_DSC7320.jpg"),
-	require("../../assets/images/_DSC8250.jpg"),
-	require("../../assets/images/_DSC8267.jpg"),
-	require("../../assets/images/_DSC8274.jpg"),
-	// require("../../assets/images/_DSC8287.jpg"),
-	require("../../assets/images/_DSC8294.jpg"),
-	require("../../assets/images/_DSC9149.jpg"),
-	require("../../assets/images/_DSC9248.jpg"),
-	require("../../assets/images/_DSC9417.jpg"),
-	// require("../../assets/images/_DSC9422.jpg"),
-	require("../../assets/images/_DSC9955.jpg")
+	{ image: require("../../assets/images/_DSC0391.jpg"), caption: "Ocean Park" },
+	{ image: require("../../assets/images/_DSC0476.jpg"), caption: "Ocean Park" },
+	{ image: require("../../assets/images/_DSC0513.jpg"), caption: "Ocean Park" },
+	{ image: require("../../assets/images/_DSC0948.jpg"), caption: "Gothic Basin" },
+	{
+		image: require("../../assets/images/_DSC0985-Pano.jpg"),
+		caption: "Gothic Basin"
+	},
+	{
+		image: require("../../assets/images/_DSC1379-Pano.jpg"),
+		caption: "Gothic Basin"
+	},
+	{ image: require("../../assets/images/_DSC4216.jpg"), caption: "Pierson College" },
+	{ image: require("../../assets/images/_DSC4410.jpg"), caption: "New Haven" },
+	{ image: require("../../assets/images/_DSC4417.jpg"), caption: "New Haven" },
+	{ image: require("../../assets/images/_DSC4456.jpg"), caption: "JoJos" },
+	{ image: require("../../assets/images/_DSC4726.jpg"), caption: "Pierson College" },
+	{ image: require("../../assets/images/_DSC5377-2.jpg"), caption: "Norwich" },
+	{ image: require("../../assets/images/_DSC6575.jpg"), caption: "Rooftop" },
+	{ image: require("../../assets/images/_DSC6845.jpg"), caption: "Window" },
+	{ image: require("../../assets/images/_DSC7320.jpg"), caption: "Snoqualmie" },
+	{ image: require("../../assets/images/_DSC8250.jpg"), caption: "Maison Mathis" },
+	{ image: require("../../assets/images/_DSC8267.jpg"), caption: "MoMA" },
+	{ image: require("../../assets/images/_DSC8274.jpg"), caption: "NYC" },
+	// /image: / {require("../../assets/images/_DSC8287.jpg"), caption: "location"},
+	{ image: require("../../assets/images/_DSC8294.jpg"), caption: "NYC" },
+	{ image: require("../../assets/images/_DSC9149.jpg"), caption: "Mount Defiance" },
+	{ image: require("../../assets/images/_DSC9248.jpg"), caption: "Diablo Lake" },
+	{ image: require("../../assets/images/_DSC9417.jpg"), caption: "Iron Peak" },
+	// /image: / {require("../../assets/images/_DSC9422.jpg"), caption: "location"},
+	{ image: require("../../assets/images/_DSC9955.jpg"), caption: "Bellevue" }
 ];
 
 const Gallery = () => (
-	<Element className="gallery-container" name="photo-section">
-		{photos.map((url, i) => (
-			<ParallaxBanner key={i} className="image-wrapper" layers={[{ image: url, amount: 0.1 }]} />
+	<Element className="section-container gallery" name="photo-section">
+		{photos.map(({ image, caption }, i) => (
+			<div className="image-container">
+				<ParallaxBanner key={i} className="image-wrapper" layers={[{ image, amount: 0.1 }]} />
+				<h2 className="photo-caption">{caption}</h2>
+			</div>
 		))}
 	</Element>
 );

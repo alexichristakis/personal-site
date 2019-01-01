@@ -4,8 +4,9 @@ import { Element } from "react-scroll";
 import "./About.scss";
 
 const About = () => (
-	<Element className="about-container" name="about-section">
-		<h1>ALexi christakis</h1>
+	<Element className="section-container about" name="about-section">
+		<h1>Alexi Christakis</h1>
+		<p>Yale College 2020 Computer Science Major, enthusiast, photographer, designer, builder.</p>
 	</Element>
 );
 

@@ -39,15 +39,16 @@
 }
 
 .content-container {
-	/*top: -200vh;*/
-		display: flex;
+	display: flex;
   flex-direction: column;
-  align-items: center;
+  transform: translateY(-200vh);
+  pointer-events: none;
 }
 
-.content-container {
-	transform: translateY(-200vh);
-  pointer-events: none;
+.section-container {
+  display: flex;
+  margin-top: 100px;
+  padding: 50px 0px 0px 75px;
 }
 
 .info-container {
@@ -98,7 +99,7 @@
 	text-align: center;
   color: $darkgray;
   position: relative;
-  top: -83px;
+  top: -52px;
 }
 
 .svg-wrapper-name {

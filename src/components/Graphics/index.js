@@ -3,7 +3,6 @@ import uuidv4 from "uuid/v4";
 
 import "./Graphics.scss";
 
-const SPRING_CONFIG = { stiffness: 215, damping: 20 };
 const MAX_POINTS = 200;
 const MAX_CONNECTIONS = 60;
 const RANDOMNESS = 75;
@@ -96,7 +95,7 @@ class Graphics extends Component {
 
     return (
       <div
-        className={"graphics-container"}
+        className="graphics-container"
         onMouseMove={this.handleMouseMove}
         onTouchMove={this.handleTouchMove}
       >

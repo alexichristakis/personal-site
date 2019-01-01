@@ -4,7 +4,7 @@ import { Element } from "react-scroll";
 import "./Design.scss";
 
 const Design = () => (
-	<Element className="design-container" name="design-section">
+	<Element className="section-container design" name="design-section">
 		<h1>ALexi christakis</h1>
 	</Element>
 );

@@ -4,8 +4,8 @@ import { Element } from "react-scroll";
 import "./Code.scss";
 
 const Code = () => (
-	<Element className="code-container" name="code-section">
-		<h1>ALexi christakis</h1>
+	<Element className="section-container code" name="code-section">
+		<h1>soon</h1>
 	</Element>
 );
 

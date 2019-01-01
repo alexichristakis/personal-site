@@ -5,7 +5,7 @@ import "./Design.scss";
 
 const Design = () => (
 	<Element className="section-container design" name="design-section">
-		<h1>ALexi christakis</h1>
+		<h1>soon</h1>
 	</Element>
 );
 

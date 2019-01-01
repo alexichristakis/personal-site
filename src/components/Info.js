@@ -11,23 +11,30 @@ const sandbox_link = "https://sandboxatyale.com/";
 const Info = ({ onClickName }) => {
   return (
     <div className={"info-container"}>
-      <Parallax offsetYMax={200} offsetYMin={-200}>
-        <div className={"link large"} onClick={onClickName}>
-          Alexi Christakis
+      <Parallax offsetYMax={"200px"} offsetYMin={"-200px"}>
+        <div className="svg-wrapper">
+          <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
+            <rect className="shape" height="60" width="320" />
+          </svg>
+          <h1 className="name" onClick={onClickName}>
+            Alexi Christakis
+          </h1>
         </div>
       </Parallax>
-      <Parallax offsetYMax={100} offsetYMin={-100}>
-        <div className={"link"} onClick={() => window.open(github_link)}>
+      <Parallax offsetYMax={"100px"} offsetYMin={"-100px"}>
+        <h1 className="link" onClick={() => window.open(github_link)}>
           GitHub
-        </div>
+        </h1>
       </Parallax>
-      <div className={"link"} onClick={() => window.open(linkedin_link)}>
+
+      <h1 className="link" onClick={() => window.open(linkedin_link)}>
         LinkedIn
-      </div>
-      <Parallax offsetYMax={150} offsetYMin={-150} slowerScrollRate>
-        <div className={"link space"} onClick={() => window.open(sandbox_link)}>
+      </h1>
+
+      <Parallax offsetYMax={"140px"} offsetYMin={"-100px"} slowerScrollRate>
+        <h1 className="link" onClick={() => window.open(sandbox_link)}>
           Sandbox
-        </div>
+        </h1>
       </Parallax>
     </div>
   );

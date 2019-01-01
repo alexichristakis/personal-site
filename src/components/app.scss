@@ -75,9 +75,11 @@
 }
 
 .link {
+	margin: 5px;
   display: flex;
   flex-direction: row;
   font-size: 20pt;
+  font-weight: normal;
   color: $darkgray;
   padding-left: 75px;
   padding-right: 75px;
@@ -85,14 +87,51 @@
   transition: all 170ms cubic-bezier(0.21, 0.94, 0.64, 0.99);
   &:hover {
     color: $turquoise;
-    transform: scale(1.25);
+    transform: scale(1.2);
   }
 }
-.link.large {
-	font-size: 30pt;
+
+@keyframes draw {
+  0% {
+    stroke-dasharray: 200 540;
+    stroke-dashoffset: -434;
+    stroke-width: 8px;
+  }
+  100% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 4px;
+  }
 }
-.link.space {
-	margin-top: 5px;
+
+.name {
+	font-size: 32pt;
+	line-height: 32px;
+	font-weight: normal;
+	text-align: center;
+  color: $darkgray;
+  position: relative;
+  top: -83px;
+}
+
+.svg-wrapper {
+  height: 60px;
+	margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+}
+
+.svg-wrapper:hover .shape {
+  -webkit-animation: 0.5s draw linear forwards;
+  animation: 0.5s draw linear forwards;
+}
+
+.shape {
+  fill: transparent;
+  stroke-dasharray: 200 540;
+  stroke-dashoffset: -434;
+  stroke-width: 8px;
+  stroke: $turquoise;
 }
 
 .resume-container {

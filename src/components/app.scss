@@ -78,7 +78,7 @@
   }
 }
 
-@keyframes draw-name {
+@keyframes draw-name-in {
   0% {
     stroke-dasharray: 200 540;
     stroke-dashoffset: -434;
@@ -109,8 +109,8 @@
 }
 
 .svg-wrapper-name:hover .shape-name {
-  -webkit-animation: 0.5s draw-name linear forwards;
-  animation: 0.5s draw-name linear forwards;
+  -webkit-animation: 0.5s draw-name-in linear forwards;
+  animation: 0.5s draw-name-in linear forwards;
 }
 
 .shape-name {

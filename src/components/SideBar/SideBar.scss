@@ -1,9 +1,9 @@
 @import "../../lib/colors.scss";
 
-@keyframes draw-section {
+@keyframes draw-section-in {
   0% {
-  	stroke-dasharray: 34 540;
-  	stroke-dashoffset: -210;
+    stroke-dasharray: 34 540;
+    stroke-dashoffset: -210;
     stroke-width: 8px;
   }
   100% {
@@ -11,6 +11,19 @@
     stroke-dashoffset: 0;
     stroke-width: 4px;
   }
+}
+
+@keyframes draw-section-out {
+  0% {
+    stroke-dasharray: 760;
+    stroke-dashoffset: 0;
+    stroke-width: 4px;
+  }
+  100% {
+    stroke-dasharray: 34 540;
+    stroke-dashoffset: -210;
+    stroke-width: 8px;
+  } 
 }
 
 .sidebar-container {
@@ -28,20 +41,7 @@
 
 .sidebar-section-container {
   margin: 0;
-  /*display: flex;*/
-  /*flex-direction: row;*/
   cursor: pointer;
-  /*padding-left: 10px;*/
-  /*color: $lightgray;
-  writing-mode: vertical-rl;
-  text-orientation: upright;*/
-/*  -webkit-transition:  all 1s cubic-bezier(0.21, 0.94, 0.64, 0.99);
-  -moz-transition:  all 1s cubic-bezier(0.21, 0.94, 0.64, 0.99);
-  transition: all 1s cubic-bezier(0.21, 0.94, 0.64, 0.99);
-  &:hover {
-    transform: scale(1.1);
-    color: $turquoise;
-  }*/
 }
 
 .sibebar-section-active .shape-section {
@@ -51,28 +51,13 @@
 
 .sidebar-section-title {
   margin: 0;
-  /*line-height: 32px;*/
-  /*left: -55px;*/
-  transform: translateX(-45px);
+  transform: translateX(-43px);
   font-weight: normal;
   font-size: 12pt;
   color: $lightgray;
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
-
-/*@keyframes draw-section {
-	0% {
-    stroke-dasharray: 760;
-    stroke-dashoffset: 0;
-    stroke-width: 4px;
-  }
-  100% {
-  	stroke-dasharray: 34 540;
-  	stroke-dashoffset: -210;
-    stroke-width: 8px;
-  }
-}*/
 
 .svg-wrapper-section {
   height: 60px;
@@ -83,13 +68,13 @@
 }
 
 .svg-wrapper-section:hover .shape-section {
-  -webkit-animation: draw-section 0.5s linear forwards;
-  animation: draw-section 0.5s linear forwards;
+  -webkit-animation: draw-section-in 0.5s linear forwards;
+  animation: draw-section-in 0.5s linear forwards;
 }
 
 .sidebar-section-active .shape-section {
-	-webkit-animation: draw-section 0.5s linear forwards;
-  animation: draw-section 0.5s linear forwards;
+	-webkit-animation: draw-section-in 0.5s linear forwards;
+  animation: draw-section-in 0.5s linear forwards;
 }
 
 .shape-section {
@@ -98,7 +83,6 @@
   stroke-dashoffset: -210;
   stroke-width: 8px;
   stroke: $turquoise;
-  /*transition: all 500ms;*/
-  /*-webkit-animation: draw-section 0.25s linear backwards 1 forwards;*/
- 	/*animation: draw-section 0.25s linear backwards 1 forwards;*/
+  -webkit-animation: draw-section-out 0.25s linear forwards;
+ 	animation: draw-section-out 0.25s linear forwards;
 }

@@ -22,6 +22,13 @@
   }
 }
 
+@media only screen and (max-width: 1300px) {
+	.image-wrapper {
+		width: 450px !important;
+		height: 300px !important;
+	}
+}
+
 .photo-caption {
 	position: absolute;
   margin-top: -40px;

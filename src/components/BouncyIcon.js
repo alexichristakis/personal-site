@@ -3,7 +3,7 @@ import { FaChevronDown } from "react-icons/fa";
 import { Parallax } from "react-scroll-parallax";
 
 const MoreIcon = () => (
-	<Parallax offsetYMax={"75%"} offsetYMin={"-75%"} slowerScrollRate>
+	<Parallax offsetYMax={"100px"} offsetYMin={"-100px"} slowerScrollRate>
 		<div className={"bouncy-div"}>
 			<div className={"chevron"}>
 				<FaChevronDown />

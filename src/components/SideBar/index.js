@@ -13,7 +13,11 @@ const SectionLink = ({ to, title }) => (
 		duration={500}
 	>
 		<svg height="150" width="40" xmlns="http://www.w3.org/2000/svg">
-			<text className="sidebar-section-title">{title}</text>
+			{title.split("").map((char, i) => (
+				<text key={i} className="sidebar-section-title" y={18 * i + 20} textAnchor="middle">
+					{char}
+				</text>
+			))}
 			<rect className="shape-section" height="150" width="40" />
 		</svg>
 	</Link>

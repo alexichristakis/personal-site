@@ -5,19 +5,17 @@ import "./SideBar.scss";
 
 const SectionLink = ({ to, title }) => (
 	<Link
-		className="sidebar-section-container"
+		className="svg-wrapper-section"
 		activeClass="sidebar-section-active"
 		to={to}
 		spy={true}
 		smooth={true}
 		duration={500}
 	>
-		<div className="svg-wrapper-section">
-			<svg height="150" width="40" xmlns="http://www.w3.org/2000/svg">
-				<rect className="shape-section" height="150" width="40" />
-			</svg>
-			<h1 className="sidebar-section-title">{title}</h1>
-		</div>
+		<svg height="150" width="40" xmlns="http://www.w3.org/2000/svg">
+			<text className="sidebar-section-title">{title}</text>
+			<rect className="shape-section" height="150" width="40" />
+		</svg>
 	</Link>
 );
 

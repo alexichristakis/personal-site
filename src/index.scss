@@ -3,11 +3,13 @@
   src: local('sofia-pro'), url(./assets/sofia-pro-regular-webfont.ttf) format('truetype');
 }
 
+* { margin: 0; padding: 0; }
+
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*width: 100%;*/
+  /*height: 100%;*/
   overscroll-behavior: none;
   -ms-overflow-style: none;  
   overflow: -moz-scrollbars-none;
@@ -15,6 +17,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 body::-webkit-scrollbar { 
   display: none;
 }

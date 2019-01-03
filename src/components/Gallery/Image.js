@@ -18,28 +18,30 @@ const transition = {
 };
 
 const Image = posed.img({
-  // hoverable: true,
-  // hover: {
-  // scale: 1.025
-  // },
+  hoverable: true,
+  hover: {
+    scale: 1.025,
+    zIndex: 1
+  },
   init: {
     scale: 1,
     position: "static",
     width: "auto",
     height: "auto",
     transition,
-    flip: true
+    flip: true,
+    zIndex: 2
   },
   zoom: {
-    // scale: 1.025,
+    scale: 1.025,
     position: "fixed",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     transition,
-    flip: true
-    // zIndex: 1
+    flip: true,
+    zIndex: 2
   }
 });
 

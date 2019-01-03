@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import posed from "react-pose";
 
 const Frame = posed.div({
@@ -45,16 +45,16 @@ const Image = posed.img({
   }
 });
 
-class ZoomImage extends React.Component {
+class ZoomImage extends PureComponent {
   state = { zoomed: false };
 
   zoomIn = () => {
-    window.addEventListener("scroll", this.zoomOut);
+    // window.addEventListener("scroll", this.zoomOut);
     this.setState({ zoomed: true });
   };
 
   zoomOut = () => {
-    window.removeEventListener("scroll", this.zoomOut);
+    // window.removeEventListener("scroll", this.zoomOut);
     this.setState({ zoomed: false });
   };
 

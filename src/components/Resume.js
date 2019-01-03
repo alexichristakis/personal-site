@@ -9,6 +9,7 @@ const Resume = ({ visible, onClickBackground }) => {
 			<div className={"resume-container"} onClick={onClickBackground}>
 				<img
 					className={"resume"}
+					alt="resume"
 					src={require("../assets/resume.png")}
 					onClick={() => window.open(resume_link)}
 				/>

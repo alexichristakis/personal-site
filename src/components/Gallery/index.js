@@ -1,6 +1,8 @@
 import React from "react";
 import { Element } from "react-scroll";
-import { ParallaxBanner } from "react-scroll-parallax";
+// import { ParallaxBanner } from "react-scroll-parallax";
+
+import Image from "./Image";
 
 import "./Gallery.scss";
 
@@ -36,9 +38,9 @@ import "./Gallery.scss";
 // ];
 
 const photos = [
-	{ image: require("../../assets/images/_DSC0391.jpg"), caption: "Ocean Park" },
-	{ image: require("../../assets/images/_DSC0476.jpg"), caption: "Ocean Park" },
-	{ image: require("../../assets/images/_DSC0513.jpg"), caption: "Ocean Park" },
+	{ image: require("../../assets/images/_DSC0391.jpg"), caption: "Pacific Ocean" },
+	{ image: require("../../assets/images/_DSC0476.jpg"), caption: "Pacific Ocean" },
+	{ image: require("../../assets/images/_DSC0513.jpg"), caption: "Pacific Ocean" },
 	{ image: require("../../assets/images/_DSC0948.jpg"), caption: "Gothic Basin" },
 	{
 		image: require("../../assets/images/_DSC0985-Pano.jpg"),
@@ -48,16 +50,16 @@ const photos = [
 		image: require("../../assets/images/_DSC1379-Pano.jpg"),
 		caption: "Gothic Basin"
 	},
-	{ image: require("../../assets/images/_DSC4216.jpg"), caption: "Pierson College" },
+	{ image: require("../../assets/images/_DSC4216.jpg"), caption: "Pierson" },
 	{ image: require("../../assets/images/_DSC4410.jpg"), caption: "New Haven" },
 	{ image: require("../../assets/images/_DSC4417.jpg"), caption: "New Haven" },
 	{ image: require("../../assets/images/_DSC4456.jpg"), caption: "JoJos" },
-	{ image: require("../../assets/images/_DSC4726.jpg"), caption: "Pierson College" },
+	{ image: require("../../assets/images/_DSC4726.jpg"), caption: "Pierson" },
 	{ image: require("../../assets/images/_DSC5377-2.jpg"), caption: "Norwich" },
 	{ image: require("../../assets/images/_DSC6575.jpg"), caption: "Rooftop" },
 	{ image: require("../../assets/images/_DSC6845.jpg"), caption: "Window" },
 	{ image: require("../../assets/images/_DSC7320.jpg"), caption: "Snoqualmie" },
-	{ image: require("../../assets/images/_DSC8250.jpg"), caption: "Maison Mathis" },
+	{ image: require("../../assets/images/_DSC8250.jpg"), caption: "Maison" },
 	{ image: require("../../assets/images/_DSC8267.jpg"), caption: "MoMA" },
 	{ image: require("../../assets/images/_DSC8274.jpg"), caption: "NYC" },
 	// /image: / {require("../../assets/images/_DSC8287.jpg"), caption: "location"},
@@ -70,13 +72,18 @@ const photos = [
 ];
 
 const Gallery = () => (
-	<Element className="section-container gallery" name="photo-section">
-		{photos.map(({ image, caption }, i) => (
-			<div key={i} className="image-container">
-				<ParallaxBanner className="image-wrapper" layers={[{ image, amount: 0.1 }]} />
-				<h2 className="photo-caption">{caption}</h2>
-			</div>
-		))}
+	<Element className="section-container" name="photo-section">
+		<section className="gallery">
+			{photos.map(({ image, caption }, i) => (
+				// <>
+				<Image key={i} src={image} />
+				// <h2 className="photo-caption">{caption}</h2>
+				// </>
+			))}
+		</section>
 	</Element>
 );
+
 export default Gallery;
+
+/*<ParallaxBanner className="image-wrapper" layers={[{ image, amount: 0.1 }]} />*/

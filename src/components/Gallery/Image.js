@@ -62,7 +62,7 @@ class ZoomImage extends PureComponent {
 
   render() {
     const { zoomed } = this.state;
-    const { id, src, ratio, num_columns } = this.props;
+    const { src, ratio, num_columns } = this.props;
     const pose = zoomed ? "zoom" : "init";
 
     return (

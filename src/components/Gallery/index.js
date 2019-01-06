@@ -22,7 +22,7 @@ class Gallery extends Component {
 		else if (width > 1500) num_columns = 5;
 
 		// no need to update
-		if (num_columns == prevState.columns.length) return null;
+		if (num_columns === prevState.columns.length) return null;
 
 		// columns = generateColumns({ num_columns, photos: photos });
 		const sorted_photos = PHOTOS.sort((a, b) => b.ratio - a.ratio);

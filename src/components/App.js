@@ -62,7 +62,7 @@ class App extends Component {
             <Info onClickName={this.handleOnClickName} />
             <BouncyIcon />
             <About />
-            <Gallery />
+            <Gallery screen={screen} />
             <Design />
             <Code />
           </div>

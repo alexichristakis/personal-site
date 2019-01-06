@@ -49,12 +49,12 @@ class ZoomImage extends PureComponent {
   state = { zoomed: false };
 
   zoomIn = () => {
-    // window.addEventListener("scroll", this.zoomOut);
+    window.addEventListener("scroll", this.zoomOut);
     this.setState({ zoomed: true });
   };
 
   zoomOut = () => {
-    // window.removeEventListener("scroll", this.zoomOut);
+    window.removeEventListener("scroll", this.zoomOut);
     this.setState({ zoomed: false });
   };
 
@@ -62,19 +62,20 @@ class ZoomImage extends PureComponent {
 
   render() {
     const { zoomed } = this.state;
-    const { ...props } = this.props;
+    const { id, src, ratio, num_columns } = this.props;
     const pose = zoomed ? "zoom" : "init";
 
     return (
-      <div className="image-wrapper" onClick={this.toggleZoom}>
+      <div
+        className="image-wrapper"
+        style={{ "--aspect-ratio": ratio, "--num-columns": num_columns }}
+        onClick={this.toggleZoom}
+      >
         <Frame pose={pose} className="frame" />
-        <Image pose={pose} id={pose} {...props} />
-        <img className="img-spacer" alt="gallery" {...props} />
+        <Image ref={this.refCallback} pose={pose} id={pose} src={src} />
       </div>
     );
   }
 }
-
-// <img className="img-spacer" {...props} />
 
 export default ZoomImage;

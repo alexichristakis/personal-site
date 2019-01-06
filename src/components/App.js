@@ -30,6 +30,10 @@ class App extends Component {
     this.onResize();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.onResize);
+  }
+
   onResize = () => {
     this.setState({
       screen: {

@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import classNames from "classnames";
 import posed from "react-pose";
 
 const Frame = posed.div({
@@ -67,12 +68,12 @@ class ZoomImage extends PureComponent {
 
     return (
       <div
-        className="image-wrapper"
+        className={classNames("image-wrapper", { zoomed })}
         style={{ "--aspect-ratio": ratio, "--num-columns": num_columns }}
         onClick={this.toggleZoom}
       >
         <Frame pose={pose} className="frame" />
-        <Image ref={this.refCallback} pose={pose} id={pose} src={src} />
+        <Image pose={pose} src={src} />
       </div>
     );
   }

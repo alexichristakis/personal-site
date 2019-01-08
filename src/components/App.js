@@ -14,6 +14,8 @@ import Gallery from "./Gallery";
 import Design from "./Design";
 import Code from "./Code";
 
+import PHOTOS from "../assets/images";
+
 import "./App.scss";
 
 class App extends Component {
@@ -66,7 +68,7 @@ class App extends Component {
             <Info onClickName={this.handleOnClickName} />
             <BouncyIcon />
             <About />
-            <Gallery screen={screen} />
+            <Gallery screen={screen} photos={PHOTOS} />
             <Design />
             <Code />
           </div>

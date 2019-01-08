@@ -4,7 +4,7 @@ import uuidv4 from "uuid/v4";
 import "./Graphics.scss";
 
 const MAX_POINTS = 200;
-const MAX_CONNECTIONS = 60;
+const MAX_CONNECTIONS = 10;
 const RANDOMNESS = 75;
 const DIST = 150;
 const POINT_DROP = 30;
@@ -61,6 +61,7 @@ class Graphics extends Component {
 
     let p2 = new_points[new_points.length - 1];
     new_points.forEach(p1 => {
+      if (p1.key == p2.key) return;
       if (p1.connections < MAX_CONNECTIONS && p2.connections < MAX_CONNECTIONS) {
         if (this.distance(p1, p2) < DIST - Math.random() * RANDOMNESS) {
           // update number of connections

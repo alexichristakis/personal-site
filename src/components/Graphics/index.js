@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import uuidv4 from "uuid/v4";
 
 import "./Graphics.scss";
@@ -9,7 +9,7 @@ const RANDOMNESS = 75;
 const DIST = 150;
 const POINT_DROP = 30;
 
-class Graphics extends Component {
+class Graphics extends PureComponent {
   state = {
     count: 0,
     mouse: { x: 0, y: 0 },

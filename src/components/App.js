@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
+import ReactGA from 'react-ga';
 
 import Graphics from "./Graphics";
 import SideBar from "./SideBar";
@@ -17,6 +18,9 @@ import Code from "./Code";
 import PHOTOS from "../assets/images";
 
 import "./App.scss";
+
+ReactGA.initialize('UA-133185168-1');
+ReactGA.pageview('/home');
 
 class App extends Component {
   state = {

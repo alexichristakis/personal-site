@@ -10,7 +10,7 @@ const sandbox_link = "https://sandboxatyale.com/";
 
 const Info = ({ onClickName }) => (
   <div className={"info-container"}>
-    <Parallax offsetYMax={"200%"} offsetYMin={"-200%"}>
+    {/*<Parallax offsetYMax={"200%"} offsetYMin={"-200%"}>*/}
       <div className="svg-wrapper-name">
         <svg height="60" width="320" xmlns="http://www.w3.org/2000/svg">
           <rect className="shape-name" height="60" width="320" />
@@ -19,22 +19,22 @@ const Info = ({ onClickName }) => (
           Alexi Christakis
         </h1>
       </div>
-    </Parallax>
-    <Parallax offsetYMax={"100%"} offsetYMin={"-100%"}>
+    {/*</Parallax>*/}
+    {/*<Parallax offsetYMax={"100%"} offsetYMin={"-100%"}>*/}
       <h2 className="link" onClick={() => window.open(github_link)}>
         GitHub
       </h2>
-    </Parallax>
+    {/*</Parallax>*/}
 
     <h2 className="link" onClick={() => window.open(linkedin_link)}>
       LinkedIn
     </h2>
 
-    <Parallax offsetYMax={"140%"} offsetYMin={"-100%"} slowerScrollRate>
+    {/*<Parallax offsetYMax={"140%"} offsetYMin={"-100%"} slowerScrollRate>*/}
       <h2 className="link" onClick={() => window.open(sandbox_link)}>
         Sandbox
       </h2>
-    </Parallax>
+    {/*</Parallax>*/}
   </div>
 );
 

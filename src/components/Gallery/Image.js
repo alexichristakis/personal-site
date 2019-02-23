@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import classNames from "classnames";
 import posed from "react-pose";
+import ReactGA from "react-ga";
 
 const Frame = posed.div({
   init: {
@@ -52,6 +53,11 @@ class ZoomImage extends PureComponent {
   zoomIn = () => {
     window.addEventListener("scroll", this.zoomOut);
     this.setState({ zoomed: true });
+
+    ReactGA.event({
+      category: 'Gallery',
+      action: 'zoom on photo'
+    });
   };
 
   zoomOut = () => {

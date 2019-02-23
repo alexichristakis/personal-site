@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import uuidv4 from "uuid/v4";
+import ReactGA from 'react-ga';
 
 import "./Graphics.scss";
 
@@ -44,6 +45,13 @@ class Graphics extends PureComponent {
         points: new_points,
         connections: new_connections
       }));
+    }
+
+    if (!(this.state.count % 100)) {
+      ReactGA.event({
+        category: 'Graphics',
+        action: '100 dots drawn'
+      });
     }
   };
 

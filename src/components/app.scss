@@ -47,6 +47,11 @@ p {
   font-size: 14pt;
 }
 
+.pointer-events {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
 .app-container {
 	display: flex;
   flex-direction: column;

@@ -6,11 +6,17 @@ $gutter: 20px;
 	@return calc(((100vw - 105px - (#{$num-columns} - 1) * #{$gutter}) / #{$num-columns}) * #{$aspect-ratio});
 }
 
+.photos {
+  margin-left: 85px;
+  flex-direction: column;
+  color: $lightgray;
+}
+
 .gallery {
-	padding-left: 75px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
-  width: 100vw;
+  width: calc(100vw - 85px);
 }
 
 .gallery .column {
@@ -27,14 +33,6 @@ $gutter: 20px;
 	pointer-events: auto;
 }
 
-// .photo-caption {
-// 	position: absolute;
-// 	text-transform: lowercase;
-//   margin-top: -40px;
-//   margin-left: 10px;
-//   color: $lightgray;
-//   mix-blend-mode: screen;
-// }
 
 .frame {
   position: fixed;

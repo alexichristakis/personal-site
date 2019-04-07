@@ -57,7 +57,8 @@ class Gallery extends Component {
 		const { columns } = this.state;
 
 		return (
-			<Element className="section-container" name="photo-section">
+			<Element className="section-container photos" name="photo-section">
+				<h1>Photos</h1>
 				<section className="gallery">
 					{columns.map(({ photos }, column_index) => (
 						<div key={column_index} className="column">

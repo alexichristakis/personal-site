@@ -1,4 +1,31 @@
+@import "../../lib/colors.scss";
+
 .design {
-	align-items: center;
-	justify-content: center;
+	align-items: flex-start;
+	/*justify-content: center;*/
+	flex-direction: column;
+	color: $lightgray;
+	margin-left: 85px;
+}
+
+.pointer-events {
+	pointer-events: auto;
+}
+
+.pages {
+	/*margin-left: 50px;*/
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	flex-direction: row;
+}
+
+.page {
+	margin: 20px 40px 20px 0px;
+	display: block;
+	object-fit: contain;
+  max-width: 70%;
+  max-height: 500px;
+  width: auto;
+  height: auto;
 }

@@ -1,4 +1,10 @@
+@import "../../lib/colors.scss";
+
 .code {
-	align-items: center;
+	align-items: flex-start;
+	/*justify-content: center;*/
+	flex-direction: column;
+	color: $lightgray;
+	margin-left: 85px;
 	justify-content: center;
 }

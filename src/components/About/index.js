@@ -5,8 +5,7 @@ import "./About.scss";
 
 const About = () => (
 	<Element className="section-container about" name="about-section">
-		<h1>Alexi Christakis</h1>
-		<p>Yale College 2020 Computer Science Major, enthusiast, photographer, designer, builder.</p>
+		<h2>Yale College 2020 Computer Science Major, enthusiast, photographer, designer, builder.</h2>
 	</Element>
 );
 

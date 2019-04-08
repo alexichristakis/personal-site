@@ -45,7 +45,7 @@ const Design = () => (
 			Project done for ART 469b: Advanced Graphic Design. Students chose a designer to write about
 			in an 'accordion' format restricted only by the limitation of printing on a single side. My
 			accordion (on Ralph Schraivogel) contains 5 sections: training & work, stylistic regularities,
-			influence & context, Henry Van de Velde, and black & white series. I designed the folding to
+			influence & context, Henry Van de Velde, and grayscale series. I designed the folding to
 			accomodate a variety of opening possibilities which each allow for a different experience. The
 			final product was produced on an Epson Inkjet large-format printer.
 		</p>
@@ -53,11 +53,9 @@ const Design = () => (
 			Read all the text and download the full pdf by clicking here.
 		</p>
 		<div className="pages">
-			{accordion_pages
-				.sort((a, b) => a.index - b.index)
-				.map(({ src }, i) => (
-					<img key={i} className="page " alt="accordion page" src={src} />
-				))}
+			{accordion_pages.map(({ src }, i) => (
+				<img key={i} className="page " alt="accordion page" src={src} />
+			))}
 		</div>
 		<h2>Public Property</h2>
 		<p>
@@ -65,11 +63,9 @@ const Design = () => (
 			New Haven were collected over the course of the semester.
 		</p>
 		<div className="pages">
-			{zine_pages
-				.sort((a, b) => a.index - b.index)
-				.map(({ src }, i) => (
-					<img key={i} className="page" alt="zine page" src={src} />
-				))}
+			{zine_pages.map(({ src }, i) => (
+				<img key={i} className="page" alt="zine page" src={src} />
+			))}
 		</div>
 	</Element>
 );

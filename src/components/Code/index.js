@@ -44,11 +44,14 @@ const Code = () => (
 			</p>
 		</Project>
 		<Project name="Hubble" link="https://github.com/alexichristakis/hubble">
-			Class project for Compoutational Linguistics that allows the user to input a Twitter handle to
-			see detailed analytics on that accounts sentiment and topic predominance over time.
+			Zillow Hackweek project designed to surface aggregated geographic housing data and provide a
+			powerful visualization tool for urban planners and researchers.
 		</Project>
 		<Project name="This Website" link="https://github.com/alexichristakis/personal-site">
 			Work in progress.
+		</Project>
+		<Project name="Sandbox" link="https://github.com/sandbox-co/website">
+			Sandbox's presentational website.
 		</Project>
 	</Element>
 );

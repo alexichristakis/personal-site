@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { ParallaxProvider } from "react-scroll-parallax";
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 
 import Graphics from "./Graphics";
 import SideBar from "./SideBar";
@@ -19,8 +19,8 @@ import PHOTOS from "../assets/images";
 
 import "./App.scss";
 
-ReactGA.initialize('UA-133185168-1');
-ReactGA.pageview('/home');
+ReactGA.initialize("UA-133185168-1");
+ReactGA.pageview("/home");
 
 class App extends Component {
   state = {
@@ -66,15 +66,18 @@ class App extends Component {
           <Graphics screen={screen} />
 
           <SideBar />
-          <Resume visible={resume_visible} onClickBackground={this.handleOnClickBackground} />
+          <Resume
+            visible={resume_visible}
+            onClickBackground={this.handleOnClickBackground}
+          />
 
           <div className="content-container">
             <Info onClickName={this.handleOnClickName} />
             <BouncyIcon />
             <About />
-            <Gallery screen={screen} photos={PHOTOS} />
             <Design />
             <Code />
+            <Gallery screen={screen} photos={PHOTOS} />
           </div>
         </div>
       </ParallaxProvider>
